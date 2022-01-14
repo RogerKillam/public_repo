@@ -1,5 +1,5 @@
 -- "Let’s say we have two tables, Parent and Child, and we need to guarantee that they both get populated at once."
--- https://www.brentozar.com/archive/2022/01/error-handling-quiz-week-tryin-try-catch/
+-- Reference: https://www.brentozar.com/archive/2022/01/error-handling-quiz-week-tryin-try-catch/
 
 -- create a test table
 DROP TABLE IF EXISTS dbo.parent;
@@ -120,18 +120,18 @@ GO
 CREATE OR ALTER PROC dbo.p_insert_transaction AS
 BEGIN
 	SET NOCOUNT ON;
-	SET XACT_ABORT ON; -- When SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
+	SET XACT_ABORT ON; -- when SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
 	BEGIN TRY
 		BEGIN TRANSACTION;
-		INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
-		WAITFOR DELAY '00:00:30';
-		INSERT INTO dbo.child(date_added) VALUES (GETDATE());
+			INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
+			WAITFOR DELAY '00:00:30';
+			INSERT INTO dbo.child(date_added) VALUES (GETDATE());
 		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
-		ROLLBACK;
+		-- see https://www.sommarskog.se/error_handling/Part1.html for more information on error handling
+    	IF @@trancount > 0 ROLLBACK TRANSACTION;
 	END CATCH
-	IF @@TRANCOUNT > 0 ROLLBACK; -- catch and rollback all the things
 END
 GO
 
