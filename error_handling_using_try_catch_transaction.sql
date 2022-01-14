@@ -39,7 +39,7 @@ BEGIN
 		INSERT INTO dbo.child(date_added) VALUES (GETDATE());
 	END TRY
 	BEGIN CATCH
-		ROLLBACK
+		ROLLBACK;
 	END CATCH
 END
 GO
@@ -68,11 +68,11 @@ GO
 -- test using a transaction
 CREATE OR ALTER PROCEDURE dbo.p_insert_transaction AS
 BEGIN
-	BEGIN TRANSACTION --this is new
+	BEGIN TRANSACTION;
 		INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
 		WAITFOR DELAY '00:00:30';
 		INSERT INTO dbo.child(date_added) VALUES (GETDATE());
-	COMMIT TRANSACTION --this is new
+	COMMIT TRANSACTION;
 END
 GO
 
@@ -92,14 +92,14 @@ GO
 CREATE OR ALTER PROCEDURE dbo.p_insert_transaction AS
 BEGIN
 	BEGIN TRY
-		BEGIN TRANSACTION
+		BEGIN TRANSACTION;
 			INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
 			WAITFOR DELAY '00:00:30';
 			INSERT INTO dbo.child(date_added) VALUES (GETDATE());
-		COMMIT TRANSACTION
+		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
-		ROLLBACK
+		ROLLBACK;
 	END CATCH
 END
 GO
@@ -117,21 +117,21 @@ TRUNCATE TABLE dbo.child;
 GO
 
 -- SET XACT_ABORT ON;
-CREATE OR ALTER PROC p_insert_transaction AS
+CREATE OR ALTER PROC dbo.p_insert_transaction AS
 BEGIN
-	SET XACT_ABORT ON
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON; -- When SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
 	BEGIN TRY
-		BEGIN TRANSACTION; -- When SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
+		BEGIN TRANSACTION;
 		INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
 		WAITFOR DELAY '00:00:30';
 		INSERT INTO dbo.child(date_added) VALUES (GETDATE());
-		COMMIT TRANSACTION
+		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
-		ROLLBACK
+		ROLLBACK;
 	END CATCH
 	IF @@TRANCOUNT > 0 ROLLBACK; -- catch and rollback all the things
-
 END
 GO
 
