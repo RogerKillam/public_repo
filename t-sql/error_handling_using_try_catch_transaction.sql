@@ -12,9 +12,11 @@ GO
 -- create a basic insert procedure
 CREATE OR ALTER PROCEDURE dbo.p_insert_two AS
 BEGIN
+
 	INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
 	WAITFOR DELAY '00:00:30';
 	INSERT INTO dbo.child(date_added) VALUES (GETDATE());
+
 END
 GO
 
@@ -34,9 +36,11 @@ GO
 CREATE OR ALTER PROCEDURE dbo.p_insert_try_catch AS
 BEGIN
 	BEGIN TRY
+
 		INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
 		WAITFOR DELAY '00:00:30';
 		INSERT INTO dbo.child(date_added) VALUES (GETDATE());
+
 	END TRY
 	BEGIN CATCH
 		ROLLBACK;
@@ -69,9 +73,11 @@ GO
 CREATE OR ALTER PROCEDURE dbo.p_insert_transaction AS
 BEGIN
 	BEGIN TRANSACTION;
+
 		INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
 		WAITFOR DELAY '00:00:30';
 		INSERT INTO dbo.child(date_added) VALUES (GETDATE());
+
 	COMMIT TRANSACTION;
 END
 GO
@@ -93,9 +99,11 @@ CREATE OR ALTER PROCEDURE dbo.p_insert_transaction AS
 BEGIN
 	BEGIN TRY
 		BEGIN TRANSACTION;
+
 			INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
 			WAITFOR DELAY '00:00:30';
 			INSERT INTO dbo.child(date_added) VALUES (GETDATE());
+
 		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
@@ -123,13 +131,15 @@ BEGIN
 	SET XACT_ABORT ON; -- when SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
 	BEGIN TRY
 		BEGIN TRANSACTION;
+
 			INSERT INTO dbo.parent(date_added) VALUES (GETDATE());
 			WAITFOR DELAY '00:00:30';
 			INSERT INTO dbo.child(date_added) VALUES (GETDATE());
+
 		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
-		-- see https://www.sommarskog.se/error_handling/Part1.html for more information on error handling
+		-- see https://www.sommarskog.se/error_handling/Part1.html for more information on error handling catch blocks
     	IF @@trancount > 0 ROLLBACK TRANSACTION;
 	END CATCH
 END
