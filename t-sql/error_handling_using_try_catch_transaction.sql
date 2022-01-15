@@ -20,7 +20,7 @@ BEGIN
 END
 GO
 
--- let p_insert_two run for a few seconds, then cancel it before the 30 second timer expires
+-- let p_insert_two run for a few seconds, then cancel it before the 30 second waitfor delay expires
 EXEC dbo.p_insert_two;
 -- then:
 SELECT * FROM dbo.parent;
@@ -48,7 +48,7 @@ BEGIN
 END
 GO
 
--- let p_insert_try_catch run for a few seconds, then cancel it before the 30 second timer expires
+-- let p_insert_try_catch run for a few seconds, then cancel it before the 30 second waitfor delay expires
 EXEC dbo.p_insert_try_catch;
 -- then:
 SELECT * FROM dbo.parent;
@@ -82,7 +82,7 @@ BEGIN
 END
 GO
 
--- let p_insert_transaction run for a few seconds, then cancel it before the 30 second timer expires
+-- let p_insert_transaction run for a few seconds, then cancel it before the 30 second waitfor delay expires
 EXEC dbo.p_insert_transaction;
 -- in this eaxmple the execution of the waitfor is canceled but the !!! transaction !!! is left open, and it will remain open!
 SELECT * FROM dbo.parent;
@@ -112,7 +112,7 @@ BEGIN
 END
 GO
 
--- let p_insert_transaction run for a few seconds, then cancel it before the 30 second timer expires
+-- let p_insert_transaction run for a few seconds, then cancel it before the 30 second waitfor delay expires
 EXEC dbo.p_insert_transaction;
 -- TRY…CATCH constructs do not trap the following conditions: Attentions, such as client-interrupt requests or broken client connections.
 SELECT * FROM dbo.parent;
@@ -139,13 +139,13 @@ BEGIN
 		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
-		-- see https://www.sommarskog.se/error_handling/Part1.html for more information on error handling catch blocks
+		-- see https://www.sommarskog.se/error_handling/Part1.html for additional information on error handling catch blocks
     	IF @@trancount > 0 ROLLBACK TRANSACTION;
 	END CATCH
 END
 GO
 
--- let p_insert_transaction run for a few seconds, then cancel it before the 30 second timer expires
+-- let p_insert_transaction run for a few seconds, then cancel it before the 30 second waitfor delay expires
 EXEC dbo.p_insert_transaction;
 -- then:
 SELECT * FROM dbo.parent;
