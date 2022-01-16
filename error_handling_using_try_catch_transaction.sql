@@ -56,12 +56,12 @@ SELECT * FROM dbo.child;
 GO
 
 /*
-	TRY…CATCH constructs do not trap the following conditions:
-	- Warnings or informational messages that have a severity of 10 or lower.
-	- Errors that have a severity of 20 or higher that stop the SQL Server Database Engine task processing for the session.
-	  If an error occurs that has severity of 20 or higher and the database connection is not disrupted, TRY…CATCH will handle the error.
-	- Attentions, such as client-interrupt requests or broken client connections.
-	- When the session is ended by a system administrator by using the KILL statement.
+TRY…CATCH constructs do not trap the following conditions:
+- Warnings or informational messages that have a severity of 10 or lower.
+- Errors that have a severity of 20 or higher that stop the SQL Server Database Engine task processing for the session.
+  If an error occurs that has severity of 20 or higher and the database connection is not disrupted, TRY…CATCH will handle the error.
+- Attentions, such as client-interrupt requests or broken client connections.
+- When the session is ended by a system administrator by using the KILL statement.
 */
 
 --reset for the next test
