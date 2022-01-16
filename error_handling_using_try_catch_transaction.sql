@@ -138,8 +138,7 @@ BEGIN
 
 		COMMIT TRANSACTION;
 	END TRY
-	BEGIN CATCH
-		-- see https://www.sommarskog.se/error_handling/Part1.html for additional information on error handling catch blocks
+	BEGIN CATCH -- see https://www.sommarskog.se/error_handling/Part1.html for additional information on error handling catch blocks
     	IF @@trancount > 0 ROLLBACK TRANSACTION;
 	END CATCH
 END
