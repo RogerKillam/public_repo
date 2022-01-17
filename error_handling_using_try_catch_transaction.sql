@@ -127,8 +127,7 @@ GO
 -- SET XACT_ABORT ON;
 CREATE OR ALTER PROC dbo.p_insert_transaction AS
 BEGIN
-	SET NOCOUNT ON;
-	SET XACT_ABORT ON; -- when SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
+	SET NOCOUNT, XACT_ABORT ON; -- when SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
 	BEGIN TRY
 		BEGIN TRANSACTION;
 
