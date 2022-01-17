@@ -195,9 +195,11 @@ BEGIN
 		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
+
 		IF @@trancount > 0 ROLLBACK TRANSACTION;
 		EXEC error_handler_sp;
 		RETURN 55555;
+
 	END CATCH
 END
 GO
@@ -209,10 +211,6 @@ GO
 
 -- Run p_insert_transaction. Note the error message returned by error_handler_sp.
 EXEC dbo.p_insert_transaction;
--- then:
-SELECT * FROM dbo.parent;
-SELECT * FROM dbo.child;
-GO
 
 -- cleanup
 DROP TABLE IF EXISTS dbo.parent;
