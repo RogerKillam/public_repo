@@ -20,7 +20,7 @@ BEGIN
 END
 GO
 
--- let p_insert_two run for a few seconds, then cancel it before the 30 second waitfor delay expires
+-- Run p_insert_two, canceling it before the 30 second waitfor delay expires.
 EXEC dbo.p_insert_two;
 -- then:
 SELECT * FROM dbo.parent;
@@ -48,7 +48,7 @@ BEGIN
 END
 GO
 
--- let p_insert_try_catch run for a few seconds, then cancel it before the 30 second waitfor delay expires
+-- Run p_insert_try_catch, canceling it before the 30 second waitfor delay expires.
 EXEC dbo.p_insert_try_catch;
 -- then:
 SELECT * FROM dbo.parent;
@@ -82,9 +82,9 @@ BEGIN
 END
 GO
 
--- let p_insert_transaction run for a few seconds, then cancel it before the 30 second waitfor delay expires
+-- Run p_insert_transaction, canceling it before the 30 second waitfor delay expires.
 EXEC dbo.p_insert_transaction;
--- in this eaxmple the execution of the waitfor is canceled but the !!! transaction !!! is left open, and it will remain open!
+-- In this eaxmple the execution of the waitfor is canceled but the !!! transaction !!! is left open, and it will remain open!
 SELECT * FROM dbo.parent;
 SELECT * FROM dbo.child;
 GO
@@ -112,7 +112,7 @@ BEGIN
 END
 GO
 
--- let p_insert_transaction run for a few seconds, then cancel it before the 30 second waitfor delay expires
+-- Run p_insert_transaction, canceling it before the 30 second waitfor delay expires.
 EXEC dbo.p_insert_transaction;
 -- TRY…CATCH constructs do not trap the following conditions: Attentions, such as client-interrupt requests or broken client connections.
 SELECT * FROM dbo.parent;
@@ -127,7 +127,7 @@ GO
 -- SET XACT_ABORT ON;
 CREATE OR ALTER PROC dbo.p_insert_transaction AS
 BEGIN
-	SET NOCOUNT, XACT_ABORT ON; -- when SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
+	SET NOCOUNT, XACT_ABORT ON; -- When SET XACT_ABORT is ON, if a Transact-SQL statement raises a run-time error, the entire transaction is terminated and rolled back.
 	BEGIN TRY
 		BEGIN TRANSACTION;
 
@@ -137,30 +137,82 @@ BEGIN
 
 		COMMIT TRANSACTION;
 	END TRY
-	BEGIN CATCH -- see https://www.sommarskog.se/error_handling/Part1.html for additional information on error handling catch blocks
+	BEGIN CATCH -- See https://www.sommarskog.se/error_handling/Part1.html for additional information on error handling catch blocks.
     	IF @@trancount > 0 ROLLBACK TRANSACTION;
 	END CATCH
 END
 GO
 
--- let p_insert_transaction run for a few seconds, then cancel it before the 30 second waitfor delay expires
+-- Run p_insert_transaction, canceling it before the 30 second waitfor delay expires.
 EXEC dbo.p_insert_transaction;
 -- then:
 SELECT * FROM dbo.parent;
 SELECT * FROM dbo.child;
 GO
 
--- alow p_insert_transaction to run without interruption
+-- Allow p_insert_transaction to run without interruption.
 EXEC dbo.p_insert_transaction;
 -- then:
 SELECT * FROM dbo.parent;
 SELECT * FROM dbo.child;
 GO
 
--- additional references
--- https://www.sommarskog.se/error_handling/Part1.html
--- https://www.sommarskog.se/error_handling/Part2.html
--- https://www.sommarskog.se/error_handling/Part3.html
+/*
+Additional References:
+https://www.sommarskog.se/error_handling/Part1.html
+https://www.sommarskog.se/error_handling/Part2.html
+https://www.sommarskog.se/error_handling/Part3.html
+*/
+
+-- Extra Credit: Erland Sommarskog's error_handler_sp
+CREATE PROCEDURE dbo.error_handler_sp AS
+BEGIN
+	DECLARE @errmsg NVARCHAR(2048), @severity TINYINT, @state TINYINT, @errno INT, @proc SYSNAME, @lineno INT;
+
+	SELECT @errmsg = error_message(), @severity = error_severity(), @state = error_state(), @errno = error_number(), @proc = error_procedure(), @lineno = error_line();
+
+	IF @errmsg NOT LIKE '***%'
+	BEGIN
+
+		SELECT @errmsg = '*** ' + COALESCE(quotename(@proc), '<dynamic SQL>') + ', Line ' + ltrim(str(@lineno)) + '. Errno ' + ltrim(str(@errno)) + ': ' + @errmsg;
+		
+	END
+	RAISERROR('%s', @severity, @state, @errmsg);
+END
+GO
+
+-- test error_handler_sp
+CREATE OR ALTER PROC dbo.p_insert_transaction AS
+BEGIN
+	SET NOCOUNT, XACT_ABORT ON;
+	BEGIN TRY
+		BEGIN TRANSACTION;
+
+			INSERT INTO dbo.parent(date_added) VALUES ('ERROR'); -- !!! ERROR !!!
+			WAITFOR DELAY '00:00:30';
+			INSERT INTO dbo.child(date_added) VALUES (GETDATE());
+
+		COMMIT TRANSACTION;
+	END TRY
+	BEGIN CATCH
+		IF @@trancount > 0 ROLLBACK TRANSACTION;
+		EXEC error_handler_sp;
+		RETURN 55555;
+	END CATCH
+END
+GO
+
+-- reset test tables
+TRUNCATE TABLE dbo.parent;
+TRUNCATE TABLE dbo.child;
+GO
+
+-- Run p_insert_transaction. Note the error message returned by error_handler_sp.
+EXEC dbo.p_insert_transaction;
+-- then:
+SELECT * FROM dbo.parent;
+SELECT * FROM dbo.child;
+GO
 
 -- cleanup
 DROP TABLE IF EXISTS dbo.parent;
@@ -168,3 +220,4 @@ DROP TABLE IF EXISTS dbo.child;
 DROP PROCEDURE dbo.p_insert_two;
 DROP PROCEDURE dbo.p_insert_try_catch;
 DROP PROCEDURE dbo.p_insert_transaction;
+DROP PROCEDURE dbo.error_handler_sp;
