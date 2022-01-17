@@ -62,6 +62,9 @@ TRY…CATCH constructs do not trap the following conditions:
   If an error occurs that has severity of 20 or higher and the database connection is not disrupted, TRY…CATCH will handle the error.
 - Attentions, such as client-interrupt requests or broken client connections.
 - When the session is ended by a system administrator by using the KILL statement.
+For additional information on this topic, see:
+https://docs.microsoft.com/en-us/sql/relational-databases/errors-events/database-engine-error-severities?redirectedfrom=MSDN&view=sql-server-ver15
+https://www.sommarskog.se/error_handling/Part2.html
 */
 
 --reset for the next test
