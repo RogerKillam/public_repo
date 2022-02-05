@@ -8,7 +8,7 @@ From Visual Studio, inside of the project's **Scripts** folder, you will find SQ
 
 There are 2 additional scripts that are used to create SQL Server Agent Jobs. These scripts are named **etl_sysjob** and **maintenance_sysjob.** The PowerShell script **New-SSISProxyUser** must be run before executing **etl_sysjob**.
 
-Additional information regarding the overall structure of the data warehouse, including details on reports and jobs, can be found in the **Documents\admin_manual.**
+Additional information regarding the overall structure of the data warehouse, including details on reports and jobs, can be found in **Documents\admin_manual.**
 
 ## Prerequisites
 **Download data_warehouse_demo to the C drive of a Windows system, C:\data_warehouse_demo.**
