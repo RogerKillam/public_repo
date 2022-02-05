@@ -11,7 +11,7 @@ There are 2 additional scripts that are used to create SQL Server Agent Jobs. Th
 Additional information regarding the overall structure of the data warehouse, including details on reports and jobs, can be found in **Documents\admin_manual.**
 
 ## Prerequisites
-**Download data_warehouse_demo to the C drive of a Windows system, C:\data_warehouse_demo.**
+**Export data_warehouse_demo to the C drive of a Windows system, C:\data_warehouse_demo.**
 
 Visual Studio 2019 Community Edition -- https://visualstudio.microsoft.com/downloads/
 
