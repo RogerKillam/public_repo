@@ -13,16 +13,16 @@ Additional information regarding the overall structure of the data warehouse, in
 ## Prerequisites
 **Export data_warehouse_demo to the C drive of a Windows system, C:\data_warehouse_demo.**
 
-Visual Studio 2019 Community Edition -- https://visualstudio.microsoft.com/downloads/
+**Visual Studio 2019 Community Edition** -- https://visualstudio.microsoft.com/downloads/
 
-SQL Server 2019 Developer Edition* -- https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+**SQL Server 2019 Developer Edition*** -- https://www.microsoft.com/en-us/sql-server/sql-server-downloads
 
-Visual Studio Extension: SQL Server Integration Service Projects -- https://marketplace.visualstudio.com/items?itemName=SSIS.SqlServerIntegrationServicesProjects
+**Visual Studio Extension: SQL Server Integration Service Projects** -- https://marketplace.visualstudio.com/items?itemName=SSIS.SqlServerIntegrationServicesProjects
 
-Visual Studio Extension: Microsoft Reporting Services Projects -- https://marketplace.visualstudio.com/items?itemName=ProBITools.MicrosoftReportProjectsforVisualStudio
+**Visual Studio Extension: Microsoft Reporting Services Projects** -- https://marketplace.visualstudio.com/items?itemName=ProBITools.MicrosoftReportProjectsforVisualStudio
 
-PowerShell
+**PowerShell**
 
-Microsoft Office
+**Microsoft Office**
 
 *The SQL Server instance name used for this project is **localhost.**
