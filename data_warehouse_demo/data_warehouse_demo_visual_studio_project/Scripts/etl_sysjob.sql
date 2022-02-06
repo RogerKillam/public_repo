@@ -61,7 +61,7 @@ BEGIN TRY
 			, @retry_interval = 0
 			, @os_run_priority = 0
 			, @subsystem = N'SSIS'
-			, @command = N'/FILE "\"C:\_SQL330\IndependentBookSellersETLpackage.dtsx\"" /CHECKPOINTING OFF /REPORTING E'
+			, @command = N'/FILE "\"C:\data_warehouse_demo\data_warehouse_demo_visual_studio_project\Admin\IndependentBookSellersETLpackage.dtsx\"" /CHECKPOINTING OFF /REPORTING E'
 			, @database_name = N'master'
 			, @flags = 0
 			, @proxy_name = N'SSIS_Proxy'; -- https://social.technet.microsoft.com/wiki/contents/articles/36797.sql-credentials-and-proxy-for-agent-job.aspx

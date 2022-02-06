@@ -47,7 +47,6 @@ BEGIN TRY
 		END
 
 		-- Step(s)
-		/****** pMaintIndexes ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintIndexes'
 			, @step_id = 1
@@ -69,7 +68,6 @@ BEGIN TRY
 			GOTO QuitWithRollback;
 		END
 
-		/****** pMaintDBBackup ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintDBBackup'
 			, @step_id = 2
@@ -91,7 +89,6 @@ BEGIN TRY
 			GOTO QuitWithRollback;
 		END
 
-		/****** pMaintRestore ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintRestore'
 			, @step_id = 3
@@ -113,7 +110,6 @@ BEGIN TRY
 			GOTO QuitWithRollback;
 		END
 
-		/****** pMaintValidateDimDatesRestore ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintValidateDimDatesRestore'
 			, @step_id = 4
@@ -135,7 +131,6 @@ BEGIN TRY
 			GOTO QuitWithRollback;
 		END
 
-		/****** pMaintValidateDimAuthorsRestore ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintValidateDimAuthorsRestore'
 			, @step_id = 5
@@ -157,7 +152,6 @@ BEGIN TRY
 			GOTO QuitWithRollback;
 		END
 
-		/****** pMaintValidateDimTitlesRestore ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintValidateDimTitlesRestore'
 			, @step_id = 6
@@ -179,7 +173,6 @@ BEGIN TRY
 			GOTO QuitWithRollback;
 		END
 
-		/****** pMaintValidateDimStoresRestore ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintValidateDimStoresRestore'
 			, @step_id = 7
@@ -201,7 +194,6 @@ BEGIN TRY
 			GOTO QuitWithRollback;
 		END
 
-		/****** pMaintValidateFactTitleAuthorsRestore ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintValidateFactTitleAuthorsRestore'
 			, @step_id = 8
@@ -223,7 +215,6 @@ BEGIN TRY
 			GOTO QuitWithRollback;
 		END
 
-		/****** pMaintValidateFactSalesRestore ******/
 		EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id = @jobId
 			, @step_name = N'Run pMaintValidateFactSalesRestore'
 			, @step_id = 9
