@@ -11,7 +11,7 @@ GO
 CREATE OR ALTER VIEW dbo.vDWIndependentBookSellersETLJobHistory AS (
 	SELECT TOP 100000 [JobName] = j.[name]
 		, [StepName] = h.[step_name]
-		, [RunDateTime] = [msdb].[dbo].[agent_datetime]([run_date], [run_time])
+		, [RunDateTime] = msdb.dbo.agent_datetime([run_date], [run_time])
 		, [RunDurationSeconds] = h.[run_duration]
 	FROM msdb.dbo.sysjobs AS j
 	INNER JOIN msdb.dbo.sysjobhistory AS h
