@@ -161,12 +161,10 @@ SELECT * FROM dbo.child;
 GO
 
 /*
-
 Additional References:
 https://www.sommarskog.se/error_handling/Part1.html
 https://www.sommarskog.se/error_handling/Part2.html
 https://www.sommarskog.se/error_handling/Part3.html
-
 */
 
 -- Extra Credit: Erland Sommarskog's error_handler_sp

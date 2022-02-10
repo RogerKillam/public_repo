@@ -4,7 +4,7 @@ This project contains my final capstone submission for the Post-Baccalaureate Ce
 ## Build Notes
 The method used to build the "Independent Book Sellers" data warehouse is to first open the Visual Studio Solution **data_warehouse_demo_solution.sln.**
 
-From Visual Studio, inside of the project's **Scripts** folder, you will find SQL scripts that are numbered from 00 to 03, and 03 through to 07. **02**_metadata_worksheet is found in the **Documents** folder. The 02_metadata_worksheet is used to define the extract, transform, and load process that takes place between 01_source_database and 03_destination_database. Open each of the scripts in the order of their ascending number, review the code, and execute each script against the SQL Server instance **localhost.**
+From Visual Studio, inside of the project's **Scripts** folder, you will find SQL scripts that are numbered from **00** to **03,** and **03** through to **07.** **02**_metadata_worksheet is found in the **Documents** folder. The 02_metadata_worksheet is used to define extract, transform, and load elements. Open each of the scripts in the order of their ascending number, review the code, and execute each script against the SQL Server instance **localhost.**
 
 There are 2 additional scripts that are used to create SQL Server Agent Jobs. These scripts are named **etl_sysjob** and **maintenance_sysjob.** The PowerShell script **New-SSISProxyUser** must be run before executing **etl_sysjob**.
 
