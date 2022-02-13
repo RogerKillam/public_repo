@@ -101,7 +101,7 @@ $record_timestamp = Get-Date -Format "yyyy/MM/dd/ HH:mm:ss.ms"
 $query = "
             DELETE FROM $table_name;
             INSERT INTO $log_table_name([record_timestamp],[action])
-            VALUES ('$record_timestamp','io server ' + '$io_server' + ' check executed');
+            VALUES ('$record_timestamp','io server ' + '$collector' + ' check executed');
 "
 
 Invoke-Sqlcmd -Database $database_name -Query $query -ServerInstance $sql_server_name
@@ -116,7 +116,7 @@ foreach ($i in $csv_log) {
     $bytes_delivered = $i."bytes_delivered"
 
     $query = "
-                INSERT INTO $table_name([record_timestamp],[io_server],[source_address_and_port],[destination_address_and_port],[bytes_delivered])
+                INSERT INTO $table_name([record_timestamp],[collector],[source_address_and_port],[destination_address_and_port],[bytes_delivered])
                 VALUES ('$record_timestamp','$collector','$source_address_and_port','$destination_address_and_port','$bytes_delivered');
     "
     
@@ -130,7 +130,7 @@ $record_timestamp = Get-Date -Format "yyyy/MM/dd/ HH:mm:ss.ms"
 
 $query = "
             INSERT INTO $log_table_name([record_timestamp],[action])
-            VALUES ('$record_timestamp','io server ' + '$io_server' + ' check complete');
+            VALUES ('$record_timestamp','io server ' + '$collector' + ' check complete');
 "
 
 Invoke-Sqlcmd -Database $database_name -Query $query -ServerInstance $sql_server_name
