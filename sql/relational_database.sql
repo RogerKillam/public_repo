@@ -6,10 +6,10 @@ USE [master]
 GO
 
 BEGIN TRY
-    DROP LOGIN test_user_01;
-    DROP LOGIN test_user_02;
+	DROP LOGIN test_user_01;
+	DROP LOGIN test_user_02;
 	DROP USER test_user_01;
-    DROP USER test_user_02;
+	DROP USER test_user_02;
 END TRY
 BEGIN CATCH
     PRINT 'Test login and user accounts not found. No cleanup needed.';
