@@ -1,5 +1,6 @@
 -- The following is a demonstration of a relational database: Create; Insert; Update; Delete; Secure.
 -- Edgar F. Codd https://www.ibm.com/ibm/history/exhibits/builders/builders_codd.html
+-- https://www.sqlservercentral.com/blogs/oltp-star-snowflake-and-galaxy-schemas
 
 -- Drop demo logins
 USE [master]
