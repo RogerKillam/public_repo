@@ -101,7 +101,7 @@ $record_timestamp = Get-Date -Format "yyyy/MM/dd/ HH:mm:ss.ms"
 $query = "
             DELETE FROM $table_name;
             INSERT INTO $log_table_name([record_timestamp],[action])
-            VALUES ('$record_timestamp','io server ' + '$collector' + ' check executed');
+            VALUES ('$record_timestamp','$collector' + ' check executed');
 "
 
 Invoke-Sqlcmd -Database $database_name -Query $query -ServerInstance $sql_server_name
@@ -130,7 +130,7 @@ $record_timestamp = Get-Date -Format "yyyy/MM/dd/ HH:mm:ss.ms"
 
 $query = "
             INSERT INTO $log_table_name([record_timestamp],[action])
-            VALUES ('$record_timestamp','io server ' + '$collector' + ' check complete');
+            VALUES ('$record_timestamp','$collector' + ' check complete');
 "
 
 Invoke-Sqlcmd -Database $database_name -Query $query -ServerInstance $sql_server_name
