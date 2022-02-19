@@ -14,14 +14,14 @@ $collector = $env:computername
 $collectors = 'collector01', 'collector02', 'collector03'
 $session = "getcap"
 $provider = "Microsoft-Windows-TCPIP"
-$log_path = "C:\"
+$log_path = 'C:\'
 $log = $log_path + 'getcap.etl'
 $csv = $log_path + 'getcap.csv'
 
 # collector server check
 if ($collector -inotin $collectors) {
     Write-Host "The system $collector is not recognized as a BACnet collector."
-    break
+    exit
 }
 
 # remove previous logs
@@ -90,9 +90,9 @@ else {
 
 # set sql server parameters and insert records
 $sql_server_name = 'localhost'
-$database_name = 'collector_checks'
+$database_name = '[collector_checks]'
 $table_name = '[dbo].[collector_' + $collector + '_check]'
-$log_table_name = 'collector_check_log'
+$log_table_name = '[dbo].[collector_check_log]'
 $count = 1
 
 # clear previous collector check and log transaction
