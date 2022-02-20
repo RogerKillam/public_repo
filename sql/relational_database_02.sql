@@ -1,37 +1,19 @@
-/*
-    # Create Database TSTDB
-    Code comments are formatted to support Azure Data Studio's _Export as Notebook_ functionality.
-    [Download Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio)
-    [Jupyter Notebooks](https://docs.microsoft.com/en-us/sql/azure-data-studio/notebooks/notebooks-guidance?view=sql-server-ver15)
-    ## Created Date
-    2021.02.21
-    ## Description
-    ### (1) Create a database and database tables
-    ### (2) Populates the database tables for Data Manipulation Language (DML) testing
-    #### The following block of transactions will run in order as listed to create 1 database and 10 tables within the newly created database.
-    1. Create and use database **TSTDB**
-    2. Create table **[dbo].People,** PK PeopleID
-    3. Create table **[dbo].Address,** PK AddressID
-    4. Create table **[dbo].Phone,** PK PhoneID
-    5. Create table **[dbo].[Email],** PK EmailID
-    6. Create table **[dbo].ClassType,** PK ClassTypeID
-    7. Create table **[dbo].Consulting,** PK ConsultantIDID, FK Name, FK Address, FK Email, FK Phone
-    8. Create table **[dbo].[Engineering],** PK EngineeringID, FK Name, FK Address, FK Email, FK Phone
-    9. Create table **[dbo].Administration,** PK AdministrationID, FK Name, FK Address, FK Email, FK Phone
-    10. Create table **[dbo].Customer,** PK CustomerID, FK Type, FK Customer, FK Consultant
-    11. Create table **[dbo].Class,** PK ClassID
-*/
+-- 1. Create and use database TSTDB
+-- 2. Create table [dbo].People, PK PeopleID
+-- 3. Create table [dbo].Address, PK AddressID
+-- 4. Create table [dbo].Phone, PK PhoneID
+-- 5. Create table [dbo].[Email], PK EmailID
+-- 6. Create table [dbo].ClassType, PK ClassTypeID
+-- 7. Create table [dbo].Consulting, PK ConsultantIDID, FK Name, FK Address, FK Email, FK Phone
+-- 8. Create table [dbo].[Engineering], PK EngineeringID, FK Name, FK Address, FK Email, FK Phone
+-- 9. Create table [dbo].Administration, PK AdministrationID, FK Name, FK Address, FK Email, FK Phone
+-- 10. Create table [dbo].Customer, PK CustomerID, FK Type, FK Customer, FK Consultant
+-- 11. Create table [dbo].Class, PK ClassID
 
-/* #### 1. Create TSTDB Database */
+-- Create TSTDB Database
 USE [master]
 GO
 
-/*
-    **Check for and handle duplicate instance of TSTDB.**
-    Uncomment _msdb.[dbo].sp\_delete\_database\_backuphistory_ to remove backup history.
-    Requires membership in the **sysadmin** fixed server role.
-    https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-delete-database-backuphistory-transact-sql?view=sql-server-ver15
-*/
 BEGIN TRY
 	CREATE DATABASE [TSTDB]
 END TRY
@@ -46,7 +28,7 @@ GO
 USE [TSTDB];
 GO
 
-/* #### 2. Create People Table */
+-- 2. Create People Table
 CREATE TABLE [dbo].[People] (
     [PeopleID] int IDENTITY (1, 1) NOT NULL
     ,[FirstName] varchar(50) NOT NULL
@@ -56,7 +38,7 @@ CREATE TABLE [dbo].[People] (
 );
 GO
 
-/* #### 3. Create Address Table */
+-- 3. Create Address Table
 CREATE TABLE [dbo].[Address] (
     [AddressID] int IDENTITY (1000, 1) NOT NULL
     ,[street] varchar(50) NOT NULL
@@ -68,7 +50,7 @@ CREATE TABLE [dbo].[Address] (
 );
 GO
 
-/* #### 4. Create Phone Table */
+-- 4. Create Phone Table
 CREATE TABLE [dbo].[Phone] (
     [PhoneID] int IDENTITY (1000, 1) NOT NULL
     ,[PhoneNumber] varchar(50) NOT NULL
@@ -77,7 +59,7 @@ CREATE TABLE [dbo].[Phone] (
 );
 GO
 
-/* #### 5. Create Email Table */
+-- 5. Create Email Table
 CREATE TABLE [dbo].[Email] (
     [EmailID] int IDENTITY (1000, 1) NOT NULL
     ,[EmailAddress] varchar(50) NOT NULL
@@ -86,7 +68,7 @@ CREATE TABLE [dbo].[Email] (
 );
 GO
 
-/* #### 6. Create ClassType Table */
+-- 6. Create ClassType Table
 CREATE TABLE [dbo].[ClassType] (
     [ClassTypeID] int IDENTITY (1, 1) NOT NULL
     ,[Type] varchar(50) NOT NULL
@@ -95,7 +77,7 @@ CREATE TABLE [dbo].[ClassType] (
 );
 GO
 
-/* #### 7. Create Consulting Table */
+-- 7. Create Consulting Table
 CREATE TABLE [dbo].[Consulting] (
     [ConsultantID] int IDENTITY (1, 1) NOT NULL
     ,[EmployeeID] varchar(50) NOT NULL
@@ -112,7 +94,7 @@ CREATE TABLE [dbo].[Consulting] (
 );
 GO
 
-/* ##### 7.1 Create Consultant Table Index */
+-- 7.1 Create Consultant Table Index
 CREATE NONCLUSTERED INDEX [fkIdx_Consultant_Name] ON [dbo].[Consulting]([Name] ASC);
 GO
 
@@ -125,7 +107,7 @@ GO
 CREATE NONCLUSTERED INDEX [fkIdx_Consultant_Phone] ON [dbo].[Consulting]([Phone] ASC);
 GO
 
-/* #### 8. Create Engineering Table */
+-- 8. Create Engineering Table
 CREATE TABLE [dbo].[Engineering] (
     [EngineeringID] int IDENTITY (1, 1) NOT NULL
     ,[EmployeeID] varchar(50) NOT NULL
@@ -142,7 +124,7 @@ CREATE TABLE [dbo].[Engineering] (
 );
 GO
 
-/* ##### 8.1 Create Engineering Table Index */
+-- 8.1 Create Engineering Table Index
 CREATE NONCLUSTERED INDEX [fkIdx_Engineering_Name] ON [dbo].[Engineering]([Name] ASC);
 GO
 
@@ -155,7 +137,7 @@ GO
 CREATE NONCLUSTERED INDEX [fkIdx_Engineering_Phone] ON [dbo].[Engineering]([Phone] ASC);
 GO
 
-/* #### 9. Create Administration Table */
+-- 9. Create Administration Table
 CREATE TABLE [dbo].[Administration] (
     [AdministrationID] int IDENTITY (1, 1) NOT NULL
     ,[EmployeeID] varchar(50) NOT NULL
@@ -173,7 +155,7 @@ CREATE TABLE [dbo].[Administration] (
 );
 GO
 
-/* ##### 9.1 Create Administration Table Index */
+-- 9.1 Create Administration Table Index
 CREATE NONCLUSTERED INDEX [fkIdx_Administration_Name] ON [dbo].[Administration]([Name] ASC);
 GO
 
@@ -186,7 +168,7 @@ GO
 CREATE NONCLUSTERED INDEX [fkIdx_Administration_Phone] ON [dbo].[Administration]([Phone] ASC);
 GO
 
-/* #### 10. Create Customer Table */
+-- 10. Create Customer Table
 CREATE TABLE [dbo].[Customer] (
     [CustomerID] int IDENTITY (1, 1) NOT NULL
     ,[Organization] varchar(50) NOT NULL
@@ -203,7 +185,7 @@ CREATE TABLE [dbo].[Customer] (
 );
 GO
 
-/* ##### 10.1 Create Customer Table Index */
+-- 10.1 Create Customer Table Index
 CREATE NONCLUSTERED INDEX [fkIdx_Customer_POC] ON [dbo].[Customer]([POC] ASC);
 GO
 
@@ -216,7 +198,7 @@ GO
 CREATE NONCLUSTERED INDEX [fkIdx_Customer_Phone] ON [dbo].[Customer]([Phone] ASC);
 GO
 
-/* #### 11. Create Class Table */
+-- 11. Create Class Table
 CREATE TABLE [dbo].[Class] (
     [ClassID] int IDENTITY (1, 1) NOT NULL
     ,[Name] varchar(50) NOT NULL
@@ -234,7 +216,7 @@ CREATE TABLE [dbo].[Class] (
 );
 GO
 
-/* ### 11.1 Create Class Table Index */
+-- 11.1 Create Class Table Index
 CREATE NONCLUSTERED INDEX [fkIdx_Class_Type] ON [dbo].[Class]([Type] ASC);
 GO
 
@@ -245,17 +227,16 @@ CREATE NONCLUSTERED INDEX [fkIdx_Class_Consultant] ON [dbo].[Class]([Consultant]
 GO
 
 /*
-    #### The following block of transactions performs DML tests.
-    Test 1 **INSERT** 6 rows of data into every table
-    Test 2 **UPDATE** 3 values in the [dbo].[Administration] table
-    Test 3 **DELETE** 2 values in the [dbo].[Class] table
-    Test 4 **JOIN** tables
+    Test 1 INSERT 6 rows of data into every table
+    Test 2 UPDATE 3 values in the [dbo].[Administration] table
+    Test 3 DELETE 2 values in the [dbo].[Class] table
+    Test 4 JOIN tables
 */
 
 USE [TSTDB];
 GO
 
-/* Test 1.1 **INSERT INTO** [dbo].[Address]  */
+--  1.1 INSERT INTO [dbo].[Address] 
     INSERT INTO [dbo].[Address]([Street],[City],[State],[Zip])
     VALUES('2383 Pepper Drive','Redmond','Washington','98052')
         , ('1064 Slow Creek Road','Seattle','Washington','98104')
@@ -284,7 +265,7 @@ GO
         , ('4909 Poco Lane','Redmond','Washington','98052');
     GO
 
-/* Test 1.2 **INSERT INTO** [dbo].[ClassType] */
+--  1.2 INSERT INTO [dbo].[ClassType]
     INSERT INTO [dbo].[ClassType]([Type])
     VALUES('In-Person')
         , ('Virtual')
@@ -294,7 +275,7 @@ GO
         , ('Half Session');
     GO
 
-/* Test 1.3 **INSERT INTO** [dbo].[Email] */
+--  1.3 INSERT INTO [dbo].[Email]
     INSERT INTO [dbo].[Email]([EmailAddress])
     VALUES('jean0@adventure-works.com')
         , ('reuben0@adventure-works.com')
@@ -322,7 +303,7 @@ GO
         , ('linda0@adventure-works.com');
     GO
 
-/* Test 1.4 **INSERT INTO** [dbo].[People] */
+--  1.4 INSERT INTO [dbo].[People]
     INSERT INTO [dbo].[People]([FirstName],[LastName])
     VALUES('Jean','Trenary')
         , ('Reuben','Dsa')
@@ -350,7 +331,7 @@ GO
         , ('Linda','Moschell');
     GO
 
-/* Test 1.5 **INSERT INTO** [dbo].[Phone] */
+--  1.5 INSERT INTO [dbo].[Phone]
     INSERT INTO [dbo].[Phone]([PhoneNumber])
     VALUES('685-555-0120')
         , ('191-555-0112')
@@ -378,7 +359,7 @@ GO
         , ('612-555-0171');
     GO
 
-/* Test 1.6 **INSERT INTO** [dbo].[Administration] */
+--  1.6 INSERT INTO [dbo].[Administration]
     INSERT INTO [dbo].[Administration]([EmployeeID],[Name],[Address],[Email],[Phone],[isManager])
     VALUES('TS132-INC','1','1000','1000','1000','1')
         , ('TS134-INC','2','1001','1001','1001','1')
@@ -388,7 +369,7 @@ GO
         , ('TS142-INC','6','1005','1005','1005','0');
     GO
 
-/* Test 1.7 **INSERT INTO** [dbo].[Consulting] */
+--  1.7 INSERT INTO [dbo].[Consulting]
     INSERT INTO [dbo].[Consulting]([EmployeeID],[Name],[Address],[Email],[Phone])
     VALUES('TS144-INC','7','1006','1006','1006')
         , ('TS146-INC','8','1007','1007','1007')
@@ -398,7 +379,7 @@ GO
         , ('TS153-INC','12','1011','1011','1011');
     GO
 
-/* Test 1.8 **INSERT INTO** [dbo].[Engineering] */
+--  1.8 INSERT INTO [dbo].[Engineering]
     INSERT INTO [dbo].[Engineering]([EmployeeID],[Name],[Address],[Email],[Phone])
     VALUES('TS144-INC','13','1012','1012','1012')
         , ('TS146-INC','14','1013','1013','1013')
@@ -408,7 +389,7 @@ GO
         , ('TS153-INC','18','1017','1017','1017');
     GO
 
-/* Test 1.9 **INSERT INTO** [dbo].[Customer] */
+--  1.9 INSERT INTO [dbo].[Customer]
     INSERT INTO [dbo].[Customer]([Organization],[POC],[Address],[Email],[Phone])
     VALUES('First National Sport Co.','19','1018','1018','1018')
         , ('Recreation Place','20','1019','1019','1019')
@@ -418,7 +399,7 @@ GO
         , ('Vista Road Bikes','24','1023','1023','1023');
     GO
 
-/* Test 1.10 **INSERT INTO** [dbo].[Class] */
+--  1.10 INSERT INTO [dbo].[Class]
     INSERT INTO [dbo].[Class]([Name],[Type],[Rate],[Customer],[Consultant],[Start],[End])
     VALUES('Intro Training','2','34.00','1','1','2021-01-04','2021-01-07')
         , ('Refresher Training','3','28.00','2','2','2021-02-08','2021-02-10')
@@ -428,7 +409,7 @@ GO
         , ('Function Training','1','34.00','6','6','2021-05-06','2021-05-07');
     GO
 
-/* Test 2 **UPDATE** 3 values in [dbo].[Administration] */
+--  2 UPDATE 3 values in [dbo].[Administration]
 	UPDATE [dbo].[Address]
 	SET [Street]='2383 Salt Drive', [city]='Bellevue', [zip]='98004'
     FROM [dbo].[Address]
@@ -437,12 +418,12 @@ GO
     WHERE [EmployeeID] = 'TS132-INC';
     GO
 
-/* Test 3 **DELETE** 2 values in [dbo].[Class] */
+--  3 DELETE 2 values in [dbo].[Class]
     DELETE FROM [dbo].[Class]
     WHERE [ClassID] = 1 OR [ClassID] = 2;
     GO
 
-/* Test 4.1 **JOIN** Administration */
+--  4.1 JOIN Administration
     -- https://www.sqlservercentral.com/articles/ansi-joins
     SELECT a.[EmployeeID], p.[FirstName], p.[LastName], s.[street], s.[city], s.[state], s.[zip], e.[EmailAddress], t.[PhoneNumber]
     FROM [dbo].[Administration] AS a, [dbo].[People] AS p, [dbo].[Address] AS s, [dbo].[Email] AS e, [dbo].[Phone] AS t
@@ -473,7 +454,7 @@ GO
         ON [dbo].[Administration].[Phone] = [dbo].[Phone].[PhoneID];
     GO
 
-/* Test 4.2 **JOIN** Consulting */
+--  4.2 JOIN Consulting
     SELECT [dbo].[Consulting].[EmployeeID]
     , [dbo].[People].[FirstName]
     , [dbo].[People].[LastName]
@@ -494,7 +475,7 @@ GO
         ON [dbo].[Consulting].[Phone] = [dbo].[Phone].[PhoneID];
     GO
 
-/* Test 4.3 **JOIN** Engineering */
+--  4.3 JOIN Engineering
     SELECT [dbo].[Engineering].[EmployeeID]
     , [dbo].[People].[FirstName]
     , [dbo].[People].[LastName]
@@ -515,7 +496,7 @@ GO
         ON [dbo].[Engineering].[Phone] = [dbo].[Phone].[PhoneID];
     GO
 
-/* Test 4.4 **JOIN** Customer */
+--  4.4 JOIN Customer
     SELECT [dbo].[Customer].[Organization]
     , [dbo].[People].[FirstName] AS [POC First Name]
     , [dbo].[People].[LastName] AS [POC Last Name]
@@ -536,7 +517,7 @@ GO
         ON [dbo].[Customer].[Phone] = [dbo].[Phone].[PhoneID];
     GO
 
-/* Test 4.5 **JOIN** Class */
+--  4.5 JOIN Class
     SELECT [dbo].[Class].[ClassID]
     , [dbo].[Class].[Name]
     , [dbo].[ClassType].[Type]
