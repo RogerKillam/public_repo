@@ -27,10 +27,10 @@ USE [master]
 GO
 
 /*
-**Check for and handle duplicate instance of TSTDB.**
-Uncomment _msdb.[dbo].sp\_delete\_database\_backuphistory_ to remove backup history.
-Requires membership in the **sysadmin** fixed server role.
-https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-delete-database-backuphistory-transact-sql?view=sql-server-ver15
+    **Check for and handle duplicate instance of TSTDB.**
+    Uncomment _msdb.[dbo].sp\_delete\_database\_backuphistory_ to remove backup history.
+    Requires membership in the **sysadmin** fixed server role.
+    https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-delete-database-backuphistory-transact-sql?view=sql-server-ver15
 */
 BEGIN TRY
 	CREATE DATABASE [TSTDB]
@@ -533,7 +533,7 @@ GO
     INNER JOIN [dbo].[People]
         ON [dbo].[Customer].[POC] = [dbo].[People].[PeopleID]
     INNER JOIN [dbo].Phone
-        ON [dbo].Customer.Phone = [dbo].[Phone].[PhoneID];
+        ON [dbo].[Customer].[Phone] = [dbo].[Phone].[PhoneID];
     GO
 
 /* Test 4.5 **JOIN** Class */
