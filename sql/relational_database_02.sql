@@ -59,10 +59,10 @@ GO
 /* #### 3. Create Address Table */
 CREATE TABLE [dbo].[Address] (
     [AddressID] int IDENTITY (1000, 1) NOT NULL
-	,[street] varchar(50) NOT NULL
+    ,[street] varchar(50) NOT NULL
     ,[city] varchar(50) NOT NULL
     ,[state] varchar(50) NOT NULL
-	,[zip] int NOT NULL
+    ,[zip] int NOT NULL
 
     CONSTRAINT [PK_AddressID] PRIMARY KEY CLUSTERED ([AddressID] ASC)
 );
