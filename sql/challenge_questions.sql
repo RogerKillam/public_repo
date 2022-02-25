@@ -1,14 +1,16 @@
+-- https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2019.bak
 USE [AdventureWorks2019]
 GO
 
--- Create a procedure named p_report_error that can be called from the CATCH block and print the following information:
--- 'Error' followed by Error Number
--- 'Severity' followed by the Error Severity
--- 'State' followed by Error State
--- 'Procedure' followed by Error Procedure
--- 'Line' follwed by Error Line
--- the Error Message
--- Note: Output will be a message as apposed to a result.
+-- Create a procedure that's called from a CATCH block and prints the following information:
+-- Error Number
+-- Error Severity
+-- Error State
+-- Error Procedure
+-- Error Line
+-- Error Message
+
+-- Output will be a message as apposed to a result.
 
 CREATE OR ALTER PROCEDURE [dbo].[p_report_error_test_procedure] AS
 BEGIN
@@ -44,7 +46,7 @@ DROP PROCEDURE [dbo].[p_report_error];
 DROP PROCEDURE [dbo].[p_report_error_test_procedure];
 GO
 
--- Create a procedure p_get_employee_info which accepts a BusinessEntityID and returns the following information:
+-- Create a procedure that accepts a BusinessEntityID and returns the following information:
 -- LoginID
 -- JobTitle
 -- BirthDate
@@ -54,7 +56,7 @@ GO
 -- Current PayRate and PayFrequency
 -- Current DepartmentName
 
--- Check incoming parameters for validity and only return information if the Employee is currently employed.
+-- Check incoming parameters for validity and only return information if the employee is currently employed.
 
 -- Test
 -- EXEC [dbo].[p_get_employee_info] 4
@@ -106,11 +108,11 @@ GO
 DROP PROCEDURE [dbo].[p_get_employee_info];
 GO
 
--- Create a procedure named p_get_product_info that will return ProductID, ProductName, CultureID, and Description.
--- The procedure should accept two parameters ProductID and CultureID.
--- The parameters should default to a NULL value if not specified by the caller.
--- The results should be limited to a matching ProductID and CultureID if specified.
--- If not specified, then the procedure should return all values.
+-- Create a procedure that returns: ProductID, ProductName, CultureID, and Description.
+-- The procedure should accept two parameters, ProductID and CultureID.
+-- If not specified by the caller, the parameters should default to a NULL value.
+-- If specified the result should be limited to a matching ProductID and CultureID.
+-- If not specified, the procedure should return all values.
 
 -- Test
 -- EXEC [dbo].[p_get_product_info] NULL, NULL
@@ -138,12 +140,12 @@ GO
 DROP PROCEDURE [dbo].[p_get_product_info];
 GO
 
--- Create a scalar function named f_get_document_status_text which accepts the single tinyint parameter @Status.
+-- Create a scalar function that accepts a single tinyint parameter named @Status.
 -- The function should return the following:
--- If a status of one is passed then it should return a unicode string that says 'Pending Approval'
--- If a status of two is passed then it should return a unicode string that says 'Approved'
--- If a status of three is passed then it should return a unicode string that says 'Obsolete'...
--- otherwise, the function should return a unicode string that says '** Invalid **'
+-- When a status of 1 is passed, return the unicode string 'Pending Approval' 
+-- When a status of 2 is passed, return the unicode string 'Approved'
+-- When a status of 3 is passed, return the unicode string that 'Obsolete'
+-- Else, the function should return the unicode string '** Invalid **'
 
 -- Test
 -- SELECT [dbo].[f_get_document_status_text](0);
@@ -152,8 +154,8 @@ GO
 -- SELECT [dbo].[f_get_document_status_text](3);
 
 CREATE OR ALTER FUNCTION [dbo].[f_get_document_status_text] (@Status TINYINT) RETURNS NVARCHAR(16)
--- Do not call the function on NULL input.
--- Because no data manipulation is being performed, tell the optimizer not to build a spool table.
+-- Do not call the function on a NULL input (WITH RETURNS NULL ON NULL INPUT).
+-- Because no data manipulation is being performed, tell the optimizer not to build a spool table (SCHEMABINDING).
 WITH RETURNS NULL ON NULL INPUT, SCHEMABINDING AS
 
 BEGIN
@@ -170,7 +172,7 @@ GO
 DROP FUNCTION [dbo].[f_get_document_status_text];
 GO
 
--- Create a inline table valued function named f_get_customer_sales which will accept from one to six CustomerIDs.
+-- Create a inline table valued function that accepts from 1 to 6 CustomerIDs.
 -- The function should return a table that contains the following columns from the SalesOrderHeader table:
 -- [CustomerID]
 -- [SalesOrderID]
@@ -216,15 +218,15 @@ GO
 DROP FUNCTION [dbo].[f_get_customer_sales];
 GO
 
--- Create a multi-statement table valued function named f_get_products_scrap_status
--- The function should accept a single integer parameter @ScrapCompareLevel and produce a table variable with the following columns:
--- Product Name
--- Scrap Quantity
--- Scrap Reason
--- Scrap Status
+-- Create a multi-statement table valued function that accepts a single integer parameter @ScrapCompareLevel.
+-- The function should return a table that contains the following columns:
+-- [Product Name]
+-- [Scrap Quantity]
+-- [Scrap Reason]
+-- [Scrap Status]
 
 -- The function should test the Production.WorkOrder ScrapReasonID. If it is not null, the row should be included in the result set.
--- For each row in the result set if the ScrapQty is greater than the @ScrapCompareLevel, the status should be set to Critical, otherwise it should be set to Normal.
+-- For each row in the result set, if the ScrapQty is greater than the @ScrapCompareLevel the status should be set to Critical, otherwise it should be set to Normal.
 
 -- Test
 /*
@@ -268,15 +270,14 @@ DROP FUNCTION [dbo].[f_get_products_scrap_status];
 GO
 
 /*
-*	Get the total for Subtotal, Tax, and Freight for all orders.
-*	Show results: Sales, Taxes, Freight, Total Due
-*	Desired Out:
+*	Select the total for Subtotal, Tax, and Freight for all orders.
+*	Show results: Sales, Taxes, Freight, Total Due.
+*
+*	Result Key:
 *
 *		Sales                 Taxes                 Freight               Total Due
 *		--------------------- --------------------- --------------------- ---------------------
 *		109846381.4039        10186974.4602         3183430.2518          123216786.1159
-*
-*
 */
 
 SELECT [Sales] = SUM([SubTotal])
@@ -287,16 +288,16 @@ FROM [Sales].[SalesOrderHeader];
 GO
 
 /*
-*	Get the Tax pct for all orders. Estimate the pct relative to sales.
+*	Select the Tax pct for all orders. Estimate the pct relative to sales.
 *	Show results: Tax, Sales, Tax pct.
-*	Desired Out:
+*
+*	Result Key:
 *
 *		TaxAmt                SubTotal              Tax pct
 *		--------------------- --------------------- ---------------------
 *		1.6149                20.1865               7.99
 *		...
 *		(31465 rows affected)
-*
 */
 
 SELECT [TaxAmt]
@@ -307,16 +308,16 @@ ORDER BY [Tax pct];
 GO
 
 /*
-*	Get the Freight pct for all orders. Estimate the pct relative to sales.
+*	Select the Freight pct for all orders. Estimate the pct relative to sales.
 *	Show results: Freight, Sales, Freight pct
-*	Desired Out:
+*
+*	Result Key:
 *
 *		Freight               SubTotal              Freight pct
 *		--------------------- --------------------- ---------------------
 *		25.0109               1000.4375             2.49
 *		...
 *		(31465 rows affected)
-*
 */
 
 SELECT [Freight]
@@ -327,16 +328,16 @@ ORDER BY [Freight pct];
 GO
 
 /*
-*	Get the average value of an order by year and month.
+*	Select the average value of an order by year and month.
 *	Show results: Year, Month, Avg Value of Orders
-*	Desired Out:
+*
+*	Result Key:
 *
 *		Year        Month       Order Avg Value
 *		----------- ----------- ---------------------
 *		2011        5           11716.4166
 *		...
 *		(38 rows affected)
-*
 */
 
 SELECT [Year] = YEAR([OrderDate])
@@ -348,16 +349,16 @@ ORDER BY YEAR([OrderDate]), MONTH([OrderDate]);
 GO
 
 /*
-*	Get all products that have a color value.
+*	Select all products that have a color value.
 *	Show results: Product Name
-*	Desired Out:
+*
+*	Result Key:
 *
 *		Name
 *		--------------------------------------------------
 *		LL Crankarm
 *		...
 *		(256 rows affected)
-*
 */
 
 SELECT [Name]
@@ -367,7 +368,8 @@ GO
 
 /*
 *	Get the summary of product lines with the number of products in each product line.
-*	Desired Out:
+*
+*	Result Key:
 *
 *		ProductLine Product Count
 *		----------- -------------
@@ -376,9 +378,8 @@ GO
 *		R           100
 *		S           35
 *		T           52
-*
+*		...
 *		(5 rows affected)
-*
 */
 
 SELECT [ProductLine], [Product Count] = COUNT(ISNULL([ProductLine],0))
@@ -388,8 +389,9 @@ ORDER BY [ProductLine];
 GO
 
 /*
-*	Get all product names that end in wheel.
-*	Desired Out:
+*	Select all product names that end in wheel.
+*
+*	Result Key:
 *
 *		Name
 *		--------------------------------------------------
@@ -408,7 +410,7 @@ GO
 *		ML Road Rear Wheel
 *		Touring Front Wheel
 *		Touring Rear Wheel
-*
+*		...
 *		(15 rows affected)
 */
 
@@ -419,14 +421,13 @@ GO
 
 /*
 *	Find if there are any products with a list price less than the standard cost. Show product id and name for those products.
-*	Desired Out:
+*
+*	Result Key:
 *
 *		ProductID   Name
 *		----------- --------------------------------------------------
-*
+*		...
 *		(0 rows affected)
-*
-*
 */
 
 SELECT [ProductID], [Name]
@@ -435,9 +436,10 @@ WHERE [ListPrice] < [StandardCost];
 GO
 
 /*
-*	Get the year summary, with rollup, of sales by sales person id handle the case when there is no sales person associated to the sale.
-*	Show results: Year, Sales Person Id, Sales
-*	Desired Out:
+*	Select the year summary with rollup of sales by sales person id. Handle the case when there is no sales person associated to the sale.
+*	Show results: Year, Sales Person Id, Sales.
+*
+*	Result Key:
 *
 *		Year        Sales Person ID Sales
 *		----------- --------------- ---------------------
@@ -447,7 +449,6 @@ GO
 *		2011        274             28926.2465
 *		...
 *		(67 rows affected)
-*
 */
 
 SELECT [Year] = YEAR([OrderDate])
@@ -459,10 +460,11 @@ ORDER BY YEAR([OrderDate]), COALESCE([SalesPersonID],0);
 GO
 
 /*
-*	Get all order details with a negative margin.
-*	Show Results: SalesOrderID, SalesOrderDetailID, Margin
+*	Select all order details with a negative margin.
+*	Show Results: SalesOrderID, SalesOrderDetailID, Margin.
 *	Define Margin: Sales - Total Cost
-*	Hint: Follow the relationship SalesOrderDetail >-- Product
+*
+*	Result Key:
 *
 *		SalesOrderID SalesOrderDetailID Margin
 *		------------ ------------------ ----------
@@ -477,8 +479,10 @@ WHERE p.[ProductID] = sd.[ProductID]
 GO
 
 /*
-*	Get all orders where one or more details have a negative margin.
-*	Show Sesults: SalesOrderID, Total Negative Margin, Total Order Margin
+*	Select all orders where one or more details have a negative margin.
+*	Show Sesults: SalesOrderID, Total Negative Margin, Total Order Margin.
+*
+*	Result Key:
 *
 *		SalesOrderID Total Negative Margin Total Order Margin
 *		------------ --------------------- ------------------
@@ -502,8 +506,10 @@ ORDER BY 3 DESC;
 GO
 
 /*
-*	Get the count of all rows, "customer ids" and "sales person ids" in the SalesOrderHeader table.
-*	Show Results: Rows, Count of Customer Ids, Count of SalesPerson Ids
+*	Select the count of all rows, "customer ids" and "sales person ids" in the SalesOrderHeader table.
+*	Show Results: Rows, Count of Customer Ids, Count of SalesPerson Ids.
+*
+*	Result Key:
 *
 *		Rows        CustomerID  SalesPersonID
 *		----------- ----------- -------------
@@ -517,9 +523,10 @@ FROM [Sales].[SalesOrderHeader];
 GO
 
 /*
-*	Get the sales total value and number of items per year, month.
-*	Show Results: Year, Month, Sales total, Items total
-*	Hint: use the functions YEAR() and MONTH() to obtain the year and month
+*	Select the sales total value and number of items per year, month.
+*	Show Results: Year, Month, Sales total, Items total.
+*
+*	Result Key:
 *
 *		YEAR        MONTH       SALES TOTAL                             ITEMS TOTAL
 *		----------- ----------- --------------------------------------- -----------
@@ -538,9 +545,11 @@ ORDER BY 1, 2;
 GO
 
 /*
-*	Get the average value of an order by year, month.
-*	Include the average number of lines and the average number of items per order
-*	Show Results: Year, Month, Avg Value of Orders, Avg Number of Items, Avg Number of Lines
+*	Select the average value of an order by year, month.
+*	Include the average number of lines and the average number of items per order.
+*	Show Results: Year, Month, Avg Value of Orders, Avg Number of Items, Avg Number of Lines.
+*
+*	Result Key:
 *
 *		YEAR        MONTH       Avg Value of Orders   Avg Number of Items Avg Number of Lines
 *		----------- ----------- --------------------- ------------------- -------------------
@@ -570,10 +579,11 @@ ORDER BY 1, 2;
 GO
 
 /*
-*	Get the total sales, cost, margin and margin percent per country.
+*	Select the total sales, cost, margin and margin percent per country.
 *	Define Margin: Sales Value - Cost Value
 *	Define Margin %: (1 - Cost/Sales) * 100
-*	Hint: Follow the relationships SalesOrderheader >-- SalesTerritory >-- CountryRegion
+*
+*	Result Key:
 *
 *		Country   Total           Cost         Margin         Margin Pct
 *		--------- --------------- ------------ -------------- ----------
@@ -600,11 +610,11 @@ ORDER BY cr.[Name];
 GO
 
 /*
-*	Get the top 5 salespersons by margin per year.
-*	Show information as: Year, Employee ID, Employee Name (Last, First), Margin
+*	Select the top 5 salespersons by margin per year.
+*	Show information as: Year, Employee ID, Employee Name (Last, First), Margin.
 *	For every year, show the top 5
 *
-*	NOTE: AS of 5/2/2021 Week_3A Assignment answers.txt does not match the "Show information as:" example
+*	Result Key:
 *
 *		Sales Year  Sales Person ID Employee             Margin
 *		----------- --------------- -------------------- ------------
@@ -638,7 +648,9 @@ WHERE T1.[Sales Person ID] = T2.[SalesPersonID]
 GO
 
 /*
-*	Get all 2012 customers that did not return in 2013.
+*	Select all 2012 customers that did not return in 2013.
+*
+*	Result Key:
 *
 *		Customer Id
 *		-----------
@@ -658,11 +670,9 @@ WHERE YEAR(O.[OrderDate]) = 2013;
 GO
 
 /*
-*	Get the Quarterly percent of Total Sales change (quarter over quarter) for 2011, 2012, 2013, 2014.
-*	Hints:
-*			> use DATEPART(QUARTER,[OrderDate]) to obtain the quarter
-*			> try making a self-join
-*			> number quarters consecutively; so, you can compare first quarter of year against last quarter of previous year
+*	Select the Quarterly percent of Total Sales change (quarter over quarter) for 2011, 2012, 2013, 2014.
+*
+*	Result Key:
 *
 *		Current Quarter Year Current Quarter Current Quarter Sales Previous Quarter Year Previous Quarter Previous Quarter Sales Performance Pct
 *		-------------------- --------------- --------------------- --------------------- ---------------- ---------------------- ---------------------
@@ -694,13 +704,12 @@ ORDER BY 1, 2;
 GO
 
 /*
-*	Get SalesPerson monthly quota achievement pct for 2012.
+*	Select SalesPerson monthly quota achievement pct for 2012.
 *	Define achievement as: Total Sales / Quota
 *	Assume Quota value is the monthly quota, and doesn't change over month
-*	Hint: follow relationships SalesOrderHeader >-- SalesPerson >-- Person
 *	Show results: [Last Name, First Name], Employee ID, Year, Month, SalesQuota, QuotaPct
 *
-*	NOTE: AS of 5/3/2021 Week_3A Assignment answers.txt does not match the "Show results:" example
+*	Result Key:
 *
 *		Employee    BusinessEntityID Year        Month       SalesQuota            Month Total           PCT QUOTA
 *		----------- ---------------- ----------- ----------- --------------------- --------------------- ---------------------
@@ -763,6 +772,7 @@ WHERE [SubTotal] < @SalesOrderAverageValue;
 GO
 
 -- Find the percentage of Sales that are less than the average value of a sale.
+-- Result Key:
 -- Total Sales Sales below Average Pct Sales below Average
 ------------- ------------------- ---------------------------------------
 --31465       27458               87.265215318607
@@ -896,7 +906,6 @@ GO
 -- Write the Fibonacci sequence for a given value of N = 25.
 -- Make the script flexible enough that N can be changed to any arbitrary number and the script should still work.
 -- The Fibonacci sequence is defined as:
---
 --N: 0| 1| 2| 3| 4| 5| 6 7| 8| ... | n |
 ---: -|--|--|--|--|--|---|---|---|-----|----------------|
 --F: 0| 1| 1| 2| 3| 5| 8| 13| 21| ... | F(n-2) + F(n-1)|
@@ -960,7 +969,7 @@ GO
 
 -- Generate a list of 1000 random numbers between 10 and 19, both ends inclusive.
 -- Show the frequency table.
--- Note: your frequency table values should be different from one run to the next one.
+-- Note: The frequency table values should be different from one run to the next one.
 
 -- Option #1
 DROP TABLE IF EXISTS #FrequencyTable;
@@ -1003,9 +1012,8 @@ GROUP BY [R]
 ORDER BY [R];
 GO
 
--- Given a comma separated list of numbers as a string create a table with the numbers and the running sum.
--- Warning: In this exercise you cannot use the STRING_SPLIT() function.
--- Assume as your input is: '1, 2, 3, 4, 316, 323, 324, 325, 326, 327, 328, 329'
+-- Without using the STRING_SPLIT() function, given a comma separated list of numbers as a string, create a table with the numbers and the running sum.
+-- Input: '1, 2, 3, 4, 316, 323, 324, 325, 326, 327, 328, 329'
 
 DECLARE @textlist NVARCHAR(MAX) = ' 1, 2, 3, 4, 316, 323, 324, 325, 326, 327, 328, 329';
 DECLARE @textvalue NVARCHAR(MAX), @N INT, @RS INT = 0, @FirstComma INT;
@@ -1083,7 +1091,7 @@ JOIN [HumanResources].[Employee] AS E
 ORDER BY HierarchyPath;
 GO
 
--- Write a function named OrderMargin to calculate the margin of an order.
+-- Write a function to calculate the margin of an order.
 -- The function takes SalesOrderId as the single argument.
 -- The function returns the calculated margin as a MONEY type value.
 -- Assume cost doesn't change, and use the StandardCost value in Production.Product.
@@ -1132,7 +1140,7 @@ BEGIN
 END
 GO
 
--- Create function named DatePartFromString that returns the DATEPART of a date from a string that matches all or part of the DATEPART argument.
+-- Create a function that returns the DATEPART of a date from a string that matches all or part of the DATEPART argument.
 -- For the valid DATEPARTs see: https://docs.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql
 -- NOTE: Implement: Year; Quarter; Month; Week; Day.
 -- If any argument is NULL, return NULL.
@@ -1204,9 +1212,8 @@ BEGIN
 END
 GO
 
--- Create function named GetPeriodRange that returns the start and end dates of a period for a given date.
+-- Create a function that returns the start and end dates of a period for a given date.
 -- Period argument is a string that matches all or part of: Year, Quarter, Month, Week, Day.
--- Hint: use a Multi-Statement Table-Valued type of function to return a single row with StartDate and EndDate columns.
 -- If any argument is NULL, return NULL for both StartDate and EndDate columns.
 
 -- Test
@@ -1277,7 +1284,7 @@ BEGIN
 END
 GO
 
--- Create a function named TestInventory to check if there are enough items of a ProductId to fulfill an order of N items (quantity).
+-- Create a function that checks if there are enough items of a ProductId to fulfill an order of N items (quantity).
 -- If any argument is NULL, return NULL.
 -- If the ProductId doesn't exist, return NULL.
 -- If the requested quantity is negative, return NULL.
@@ -1364,7 +1371,7 @@ BEGIN
 END
 GO
 
--- Create a stored procedure named TopNProductsInPeriod that returns the top N products sold during the specified period of time, around given date.
+-- Create a stored procedure that returns the top N products sold during the specified period of time, around given date.
 -- Periods of time are: All, Year, Quarter, Month, Week, Day.
 
 -- Test
@@ -1542,13 +1549,13 @@ CREATE PROCEDURE [dbo].[InsertSalesOrderDetail] @OrderID INT
 	SET NOCOUNT, XACT_ABORT ON
 	GO
 
--- Write SQL stored procedure that allows you to update the cost value of a product, as a percental change, when you are given:
+-- Write a stored procedure that updates the cost value of a product, as a percental change, when you are given:
 -- > The cost change as a percent of increment
 -- > a table variable with Product Ids
 -- > a table variable with Product Sub-Category Ids (understanding that all products under those Sub-Categories are to be updated)
 -- > a table variable with Category Ids (understanding that all products under those Categories are to be updated)
 --
--- !! Business Rules
+-- !! Business Rules !!
 -- + Existing cost information must be archived in ProductCostHIstory table
 -- + Existing open cost history needs to be properly closed
 -- + All records need to be stamped with modified date
