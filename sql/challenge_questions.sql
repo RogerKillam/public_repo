@@ -2,15 +2,15 @@
 USE [AdventureWorks2019]
 GO
 
--- Create a procedure that's called from a CATCH block and prints the following information:
--- Error Number
--- Error Severity
--- Error State
--- Error Procedure
--- Error Line
--- Error Message
-
--- Output will be a message as apposed to a result.
+/*
+* Create a procedure that's called from a CATCH block and prints the following information. Output will be a message as apposed to a result.
+* Error Number
+* Error Severity
+* Error State
+* Error Procedure
+* Error Line
+* Error Message
+*/
 
 CREATE OR ALTER PROCEDURE [dbo].[p_report_error_test_procedure] AS
 BEGIN
@@ -46,24 +46,26 @@ DROP PROCEDURE [dbo].[p_report_error];
 DROP PROCEDURE [dbo].[p_report_error_test_procedure];
 GO
 
--- Create a procedure that accepts a BusinessEntityID and returns the following information:
--- LoginID
--- JobTitle
--- BirthDate
--- MaritalStatus
--- Gender
--- HireDate
--- Current PayRate and PayFrequency
--- Current DepartmentName
-
--- Check incoming parameters for validity and only return information if the employee is currently employed.
-
--- Test
--- EXEC [dbo].[p_get_employee_info] 4
--- EXEC [dbo].[p_get_employee_info] 16
--- EXEC [dbo].[p_get_employee_info] 224
--- EXEC [dbo].[p_get_employee_info] 234
--- EXEC [dbo].[p_get_employee_info] 250
+/*
+* Create a procedure that accepts a BusinessEntityID and returns the following information:
+* LoginID
+* JobTitle
+* BirthDate
+* MaritalStatus
+* Gender
+* HireDate
+* Current PayRate and PayFrequency
+* Current DepartmentName
+*
+* Check incoming parameters for validity and only return information if the employee is currently employed.
+*
+* Test
+* EXEC [dbo].[p_get_employee_info] 4
+* EXEC [dbo].[p_get_employee_info] 16
+* EXEC [dbo].[p_get_employee_info] 224
+* EXEC [dbo].[p_get_employee_info] 234
+* EXEC [dbo].[p_get_employee_info] 250
+*/
 
 CREATE OR ALTER PROCEDURE [dbo].[p_get_employee_info] @BusinessEntityID INT AS
 BEGIN
@@ -108,20 +110,22 @@ GO
 DROP PROCEDURE [dbo].[p_get_employee_info];
 GO
 
--- Create a procedure that returns: ProductID, ProductName, CultureID, and Description.
--- The procedure should accept two parameters, ProductID and CultureID.
--- If not specified by the caller, the parameters should default to a NULL value.
--- If specified the result should be limited to a matching ProductID and CultureID.
--- If not specified, the procedure should return all values.
+/*
+* Create a procedure that returns: ProductID, ProductName, CultureID, and Description.
+* The procedure should accept two parameters, ProductID and CultureID.
+* If not specified by the caller, the parameters should default to a NULL value.
+* If specified the result should be limited to a matching ProductID and CultureID.
+* If not specified, the procedure should return all values.
+*
+* Test
+* EXEC [dbo].[p_get_product_info] NULL, NULL
+* EXEC [dbo].[p_get_product_info] NULL, 'ar'
+* EXEC [dbo].[p_get_product_info] 980, NULL
+* EXEC [dbo].[p_get_product_info] 931, 'zh-cht'
+* EXEC [dbo].[p_get_product_info] 931, 'en'
+* EXEC [dbo].[p_get_product_info] 931, 'fr'
+*/
 
--- Test
--- EXEC [dbo].[p_get_product_info] NULL, NULL
--- EXEC [dbo].[p_get_product_info] NULL, 'ar'
--- EXEC [dbo].[p_get_product_info] 980, NULL
--- EXEC [dbo].[p_get_product_info] 931, 'zh-cht'
--- EXEC [dbo].[p_get_product_info] 931, 'en'
--- EXEC [dbo].[p_get_product_info] 931, 'fr'
- 
 CREATE OR ALTER PROCEDURE [dbo].[p_get_product_info] @ProductID INT = NULL, @CultureID NCHAR(6) = NULL AS
 BEGIN
 	SET NOCOUNT, XACT_ABORT ON;
@@ -140,18 +144,20 @@ GO
 DROP PROCEDURE [dbo].[p_get_product_info];
 GO
 
--- Create a scalar function that accepts a single tinyint parameter named @Status.
--- The function should return the following:
--- When a status of 1 is passed, return the unicode string 'Pending Approval' 
--- When a status of 2 is passed, return the unicode string 'Approved'
--- When a status of 3 is passed, return the unicode string that 'Obsolete'
--- Else, the function should return the unicode string '** Invalid **'
-
--- Test
--- SELECT [dbo].[f_get_document_status_text](0);
--- SELECT [dbo].[f_get_document_status_text](1);
--- SELECT [dbo].[f_get_document_status_text](2);
--- SELECT [dbo].[f_get_document_status_text](3);
+/*
+* Create a scalar function that accepts a single tinyint parameter named @Status.
+* The function should return the following:
+* When a status of 1 is passed, return the unicode string 'Pending Approval' 
+* When a status of 2 is passed, return the unicode string 'Approved'
+* When a status of 3 is passed, return the unicode string that 'Obsolete'
+* Else, the function should return the unicode string '** Invalid **'
+*
+* Test
+* SELECT [dbo].[f_get_document_status_text](0);
+* SELECT [dbo].[f_get_document_status_text](1);
+* SELECT [dbo].[f_get_document_status_text](2);
+* SELECT [dbo].[f_get_document_status_text](3);
+*/
 
 CREATE OR ALTER FUNCTION [dbo].[f_get_document_status_text] (@Status TINYINT) RETURNS NVARCHAR(16)
 -- Do not call the function on a NULL input (WITH RETURNS NULL ON NULL INPUT).
