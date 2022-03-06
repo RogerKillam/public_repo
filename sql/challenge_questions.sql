@@ -12,12 +12,13 @@ GO
 * Error Message
 */
 
-CREATE OR ALTER PROCEDURE [dbo].[p_report_error_test_procedure] AS
+CREATE OR ALTER PROCEDURE [dbo].[p_report_error_test_procedure]
+AS
 BEGIN
 	SET NOCOUNT, XACT_ABORT ON;
 
 	BEGIN TRY
-		SELECT 1 / 0; -- Divide by zero error
+		SELECT 1 / 0; -- divide by zero error
 	END TRY
 	BEGIN CATCH
 		EXEC [dbo].[p_report_error];
@@ -25,7 +26,8 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[p_report_error] AS
+CREATE OR ALTER PROCEDURE [dbo].[p_report_error]
+AS
 BEGIN
 	SET NOCOUNT, XACT_ABORT ON;
 
@@ -67,7 +69,8 @@ GO
 * EXEC [dbo].[p_get_employee_info] 250
 */
 
-CREATE OR ALTER PROCEDURE [dbo].[p_get_employee_info] @BusinessEntityID INT AS
+CREATE OR ALTER PROCEDURE [dbo].[p_get_employee_info] @BusinessEntityID INT
+AS
 BEGIN
 	SET NOCOUNT, XACT_ABORT ON;
 
@@ -126,7 +129,8 @@ GO
 * EXEC [dbo].[p_get_product_info] 931, 'fr'
 */
 
-CREATE OR ALTER PROCEDURE [dbo].[p_get_product_info] @ProductID INT = NULL, @CultureID NCHAR(6) = NULL AS
+CREATE OR ALTER PROCEDURE [dbo].[p_get_product_info] @ProductID INT = NULL, @CultureID NCHAR(6) = NULL
+AS
 BEGIN
 	SET NOCOUNT, XACT_ABORT ON;
 
@@ -162,8 +166,8 @@ GO
 CREATE OR ALTER FUNCTION [dbo].[f_get_document_status_text] (@Status TINYINT) RETURNS NVARCHAR(16)
 -- Do not call the function on a NULL input (WITH RETURNS NULL ON NULL INPUT).
 -- Because no data manipulation is being performed, tell the optimizer not to build a spool table (SCHEMABINDING).
-WITH RETURNS NULL ON NULL INPUT, SCHEMABINDING AS
-
+WITH RETURNS NULL ON NULL INPUT, SCHEMABINDING
+AS
 BEGIN
 	RETURN CASE @Status
 	WHEN 1 THEN 'Pending Approval'
@@ -212,7 +216,8 @@ GO
 --15	11004	57293	2013-10-01 00:00:00.000	2419.06	193.5248
 
 CREATE OR ALTER FUNCTION [dbo].[f_get_customer_sales] (@CustomerId1 INT = 0, @CustomerId2 INT = 0, @CustomerId3 INT = 0, @CustomerId4 INT = 0, @CustomerId5 INT = 0, @CustomerId6 INT = 0)
-RETURNS TABLE AS
+RETURNS TABLE
+AS
 RETURN (
 	SELECT [CustomerID], [SalesOrderID], [OrderDate], [SubTotal], [TaxAmt]
 	FROM [Sales].[SalesOrderHeader]
