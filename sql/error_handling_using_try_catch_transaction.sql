@@ -56,15 +56,15 @@ SELECT * FROM dbo.child;
 GO
 
 /*
-TRY…CATCH constructs do not trap the following conditions:
-Warnings or informational messages that have a severity of 10 or lower.
-Errors that have a severity of 20 or higher that stop the SQL Server Database Engine task processing for the session.
-If an error occurs that has severity of 20 or higher and the database connection is not disrupted, TRY…CATCH will handle the error.
-Attentions, such as client-interrupt requests or broken client connections.
-When the session is ended by a system administrator by using the KILL statement.
-For additional information on this topic, see:
-https://docs.microsoft.com/en-us/sql/relational-databases/errors-events/database-engine-error-severities?redirectedfrom=MSDN&view=sql-server-ver15
-https://www.sommarskog.se/error_handling/Part2.html
+* TRY…CATCH constructs do not trap the following conditions:
+* Warnings or informational messages that have a severity of 10 or lower.
+* Errors that have a severity of 20 or higher that stop the SQL Server Database Engine task processing for the session.
+* If an error occurs that has severity of 20 or higher and the database connection is not disrupted, TRY…CATCH will handle the error.
+* Attentions, such as client-interrupt requests or broken client connections.
+* When the session is ended by a system administrator by using the KILL statement.
+* For additional information on this topic, see:
+* https://docs.microsoft.com/en-us/sql/relational-databases/errors-events/database-engine-error-severities?redirectedfrom=MSDN&view=sql-server-ver15
+* https://www.sommarskog.se/error_handling/Part2.html
 */
 
 --reset for the next test
@@ -161,10 +161,10 @@ SELECT * FROM dbo.child;
 GO
 
 /*
-Additional References:
-https://www.sommarskog.se/error_handling/Part1.html
-https://www.sommarskog.se/error_handling/Part2.html
-https://www.sommarskog.se/error_handling/Part3.html
+* Additional References:
+* https://www.sommarskog.se/error_handling/Part1.html
+* https://www.sommarskog.se/error_handling/Part2.html
+* https://www.sommarskog.se/error_handling/Part3.html
 */
 
 -- Extra Credit: Erland Sommarskog's error_handler_sp
