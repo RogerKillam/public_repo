@@ -1,4 +1,5 @@
 -- https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2019.bak
+
 USE [AdventureWorks2019]
 GO
 
@@ -230,35 +231,32 @@ GO
 DROP FUNCTION [dbo].[f_get_customer_sales];
 GO
 
--- Create a multi-statement table valued function that accepts a single integer parameter @ScrapCompareLevel.
--- The function should return a table that contains the following columns:
--- [Product Name]
--- [Scrap Quantity]
--- [Scrap Reason]
--- [Scrap Status]
-
--- The function should test the Production.WorkOrder ScrapReasonID. If it is not null, the row should be included in the result set.
--- For each row in the result set, if the ScrapQty is greater than the @ScrapCompareLevel the status should be set to Critical, otherwise it should be set to Normal.
-
--- Test
 /*
+* Create a multi-statement table valued function that accepts a single integer parameter @ScrapCompareLevel.
+* The function should return a table that contains the following columns:
+* [Product Name], [Scrap Quantity], [Scrap Reason], [Scrap Status]
+*
+* The function should test the Production.WorkOrder ScrapReasonID. If it is not null, the row should be included in the result set.
+* For each row in the result set, if the ScrapQty is greater than the @ScrapCompareLevel the status should be set to Critical, otherwise it should be set to Normal.
+*
+* Test
 
 	SELECT ProductName AS [Product Name], ScrapQty AS [Scrap Quantity], ScrapReasonDef AS [Scrap Reason], ScrapStatus AS [Scrap Status]
 	FROM dbo.f_get_products_scrap_status(20)
-
+*
+* Result Key - limited to the first 10 rows
+* Product Name						Scrap Quantity	Scrap Reason					Scrap Status
+* BB Ball Bearing					35				Brake assembly not as ordered	Critical
+* Blade							    206				Brake assembly not as ordered	Critical
+* Chain Stays						3				Brake assembly not as ordered	Normal
+* Down Tube						    2				Brake assembly not as ordered	Normal
+* Front Derailleur					53				Brake assembly not as ordered	Critical
+* Head Tube							26				Brake assembly not as ordered	Critical
+* HL Fork							26				Brake assembly not as ordered	Critical
+* HL Mountain Frame - Silver, 38	2				Brake assembly not as ordered	Normal
+* HL Mountain Seat Assembly			6				Brake assembly not as ordered	Normal
+* HL Road Frame - Black, 48			1				Brake assembly not as ordered	Normal
 */
--- Result Key - limited to the first 10 rows
--- Product Name						Scrap Quantity	Scrap Reason					Scrap Status
--- BB Ball Bearing					35				Brake assembly not as ordered	Critical
--- Blade							206				Brake assembly not as ordered	Critical
--- Chain Stays						3				Brake assembly not as ordered	Normal
--- Down Tube						2				Brake assembly not as ordered	Normal
--- Front Derailleur					53				Brake assembly not as ordered	Critical
--- Head Tube						26				Brake assembly not as ordered	Critical
--- HL Fork							26				Brake assembly not as ordered	Critical
--- HL Mountain Frame - Silver, 38	2				Brake assembly not as ordered	Normal
--- HL Mountain Seat Assembly		6				Brake assembly not as ordered	Normal
--- HL Road Frame - Black, 48		1				Brake assembly not as ordered	Normal
 
 CREATE OR ALTER FUNCTION [dbo].[f_get_products_scrap_status] (@ScrapCompareLevel INT)
 RETURNS @ScrapStats TABLE ([ProductName] NVARCHAR(50), [ScrapQty] SMALLINT, [ScrapReasonDef] NVARCHAR(50), [ScrapStatus] NVARCHAR(8))
@@ -783,11 +781,13 @@ FROM [Sales].[SalesOrderHeader]
 WHERE [SubTotal] < @SalesOrderAverageValue;
 GO
 
--- Find the percentage of Sales that are less than the average value of a sale.
--- Result Key:
--- Total Sales Sales below Average Pct Sales below Average
-------------- ------------------- ---------------------------------------
---31465       27458               87.265215318607
+/*
+* Find the percentage of Sales that are less than the average value of a sale.
+* Result Key:
+* Total Sales 	Sales below Average Pct Sales below Average
+* ------------- ------------------- ---------------------------------------
+* 31465       	27458               87.265215318607
+*/
 
 -- Option #1
 DROP TABLE IF EXISTS #LineTotals;
@@ -816,8 +816,10 @@ DECLARE @AvgFormat VARCHAR(100) = (FORMAT(@Avg, 'P14'));
 SELECT [Total Sales Sales] = @TotalSalesCount, [Sales below Average] = @CountBelowAvg, [Pct Sales below Average] = LEFT(@AvgFormat, NULLIF(LEN(@AvgFormat)-3,-3));
 GO
 
--- Write a script that creates index [SalesOrderDetail_CarrierTracking] on [Sales].[SalesOrderDetail].
--- For [CarrierTrackingNumber], [SalesOrderID], [SalesOrderDetailID] make sure the index does not exist before attempting to create it.
+/*
+* Write a script that creates index [SalesOrderDetail_CarrierTracking] on [Sales].[SalesOrderDetail].
+* For [CarrierTrackingNumber], [SalesOrderID], [SalesOrderDetailID] make sure the index does not exist before attempting to create it.
+*/
 
 -- Option #1
 DECLARE @index_id INT = (
@@ -915,12 +917,10 @@ SELECT [Primes 100~200] = [P]
 FROM @Primes;
 GO
 
--- Write the Fibonacci sequence for a given value of N = 25.
--- Make the script flexible enough that N can be changed to any arbitrary number and the script should still work.
--- The Fibonacci sequence is defined as:
---N: 0| 1| 2| 3| 4| 5| 6 7| 8| ... | n |
----: -|--|--|--|--|--|---|---|---|-----|----------------|
---F: 0| 1| 1| 2| 3| 5| 8| 13| 21| ... | F(n-2) + F(n-1)|
+/*
+* Write the Fibonacci sequence for a given value of N = 25.
+* Make the script flexible enough that N can be changed to any arbitrary number and the script should still work.
+*/
 
 -- Option #1
 DECLARE @N INT = 25;
@@ -963,13 +963,15 @@ END
 PRINT ' ';
 GO
 
--- Using master..spt_values as a numbers table
--- select * from master..spt_values WHERE [type] = 'P'
--- References:
--- https://docs.microsoft.com/en-us/sql/t-sql/functions/floor-transact-sql?view=sql-server-ver15
--- http://infocenter-archive.sybase.com/help/index.jsp
--- spt_value is used often to generate large tables i.e. if you CROSS JOIN spt_value with itself it produces about 6.25 M rows.
--- Often used by Itzak Ben-Gan to create his infamous NUMBER table.
+/*
+* Using master..spt_values as a numbers table
+* select * from master..spt_values WHERE [type] = 'P'
+* References:
+* https://docs.microsoft.com/en-us/sql/t-sql/functions/floor-transact-sql?view=sql-server-ver15
+* http://infocenter-archive.sybase.com/help/index.jsp
+* spt_value is used often to generate large tables i.e. if you CROSS JOIN spt_value with itself it produces about 6.25 M rows.
+* Often used by Itzak Ben-Gan to create his infamous NUMBER table.
+*/
 
 DECLARE @N INT = 25, @F INT = 0;
 
@@ -979,9 +981,11 @@ WHERE [type] = 'P'
 	AND [number] BETWEEN @F AND @N;
 GO
 
--- Generate a list of 1000 random numbers between 10 and 19, both ends inclusive.
--- Show the frequency table.
--- Note: The frequency table values should be different from one run to the next one.
+/*
+* Generate a list of 1000 random numbers between 10 and 19, both ends inclusive.
+* Show the frequency table.
+* Note: The frequency table values should be different from one run to the next one.
+*/
 
 -- Option #1
 DROP TABLE IF EXISTS #FrequencyTable;
@@ -1024,8 +1028,10 @@ GROUP BY [R]
 ORDER BY [R];
 GO
 
--- Without using the STRING_SPLIT() function, given a comma separated list of numbers as a string, create a table with the numbers and the running sum.
--- Input: '1, 2, 3, 4, 316, 323, 324, 325, 326, 327, 328, 329'
+/*
+* Without using the STRING_SPLIT() function, given a comma separated list of numbers as a string, create a table with the numbers and the running sum.
+* Input: '1, 2, 3, 4, 316, 323, 324, 325, 326, 327, 328, 329'
+*/
 
 DECLARE @textlist NVARCHAR(MAX) = ' 1, 2, 3, 4, 316, 323, 324, 325, 326, 327, 328, 329';
 DECLARE @textvalue NVARCHAR(MAX), @N INT, @RS INT = 0, @FirstComma INT;
@@ -1103,16 +1109,17 @@ JOIN [HumanResources].[Employee] AS E
 ORDER BY HierarchyPath;
 GO
 
--- Write a function to calculate the margin of an order.
--- The function takes SalesOrderId as the single argument.
--- The function returns the calculated margin as a MONEY type value.
--- Assume cost doesn't change, and use the StandardCost value in Production.Product.
--- Margin expression: SUM([LineTotal]) - SUM([OrderQty]*[StandardCost])
--- If there is no order that matches the argument, return NULL.
--- If the argument is NULL, return NULL.
-
--- Test
 /*
+* Write a function to calculate the margin of an order.
+* The function takes SalesOrderId as the single argument.
+* The function returns the calculated margin as a MONEY type value.
+* Assume cost doesn't change, and use the StandardCost value in Production.Product.
+* Margin expression: SUM([LineTotal]) - SUM([OrderQty]*[StandardCost])
+* If there is no order that matches the argument, return NULL.
+* If the argument is NULL, return NULL.
+*
+* Test
+
 	DECLARE @TestOrders TABLE([SalesOrderID] INT);
 
 	INSERT INTO @TestOrders([SalesOrderID])
@@ -1120,9 +1127,9 @@ GO
 
 	SELECT [SalesOrderID], [dbo].[OrderMargin]([SalesOrderID]) AS [OrderMargin]
 	FROM @TestOrders;
-*/
--- Result Key
-/*
+*
+* Result Key
+*
 *	SalesOrderID	OrderMargin
 *	------------	-----------
 *	NULL			NULL
@@ -1152,23 +1159,23 @@ BEGIN
 END
 GO
 
--- Create a function that returns the DATEPART of a date from a string that matches all or part of the DATEPART argument.
--- For the valid DATEPARTs see: https://docs.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql
--- NOTE: Implement: Year; Quarter; Month; Week; Day.
--- If any argument is NULL, return NULL.
--- Returns an integer value that represents the date part according to the DATEPART function.
--- The DATEPART function cannot take a variable as first argument.
--- The need for this function comes from the following code snippet:
 /*
+* Create a function that returns the DATEPART of a date from a string that matches all or part of the DATEPART argument.
+* For the valid DATEPARTs see: https://docs.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql
+* NOTE: Implement: Year; Quarter; Month; Week; Day.
+* If any argument is NULL, return NULL.
+* Returns an integer value that represents the date part according to the DATEPART function.
+* The DATEPART function cannot take a variable as first argument.
+* The need for this function comes from the following code snippet:
+
 	DECLARE @Part NVARCHAR(12) = 'MONTH'
 	SELECT DATEPART(@Part, sysdatetime());
 
 *	Msg 1023, Level 15, State 1, Line 3
 *	Invalid parameter 1 specified for datepart.
-*/
+*
+* Test
 
--- Test
-/*
 	DECLARE @TestDates TABLE([D] DATE);
 	DECLARE @DateParts TABLE([DatePart] NVARCHAR(12));
 
@@ -1182,7 +1189,7 @@ GO
 	FROM @TestDates CROSS JOIN @DateParts
 	ORDER BY D, [DatePart];
 
--- Result Key
+* Result Key
 *	D			Date part string	Date part number
 *	----------	----------------	----------------
 *	1011-12-13	D					13
@@ -1224,12 +1231,13 @@ BEGIN
 END
 GO
 
--- Create a function that returns the start and end dates of a period for a given date.
--- Period argument is a string that matches all or part of: Year, Quarter, Month, Week, Day.
--- If any argument is NULL, return NULL for both StartDate and EndDate columns.
-
--- Test
 /*
+* Create a function that returns the start and end dates of a period for a given date.
+* Period argument is a string that matches all or part of: Year, Quarter, Month, Week, Day.
+* If any argument is NULL, return NULL for both StartDate and EndDate columns.
+*
+* Test
+*
 *	-- DECLARE @Date DATE = '1752-01-01' -- Microsoft does not assume adoption of Gregorian calendar in the U.S. on this date.
 *	-- DECLARE @Date DATE = '1753-01-01' -- Microsoft assumes adoption of Gregorian calendar in the U.S. on and after this date.
 
@@ -1249,7 +1257,7 @@ GO
 	ORDER BY [D], [DatePart];
     GO
 
--- Result Key
+* Result Key
 *	D			Date part string	StartDate	EndDate
 *	----------	----------------	----------	-------
 *	1011-12-13	D					1011-12-13	1011-12-13
@@ -1296,14 +1304,15 @@ BEGIN
 END
 GO
 
--- Create a function that checks if there are enough items of a ProductId to fulfill an order of N items (quantity).
--- If any argument is NULL, return NULL.
--- If the ProductId doesn't exist, return NULL.
--- If the requested quantity is negative, return NULL.
--- If there are enough items to fulfill order return 1; otherwise, return 0.
-
--- Test
 /*
+* Create a function that checks if there are enough items of a ProductId to fulfill an order of N items (quantity).
+* If any argument is NULL, return NULL.
+* If the ProductId doesn't exist, return NULL.
+* If the requested quantity is negative, return NULL.
+* If there are enough items to fulfill order return 1; otherwise, return 0.
+*
+* Test
+*
 	DECLARE @RequestedProducts TABLE ([P] INT);
 	DECLARE @RequestedQuantity TABLE ([Q] INT);
 
@@ -1332,41 +1341,41 @@ GO
 	ORDER BY T.[P], Q.[Q];
     GO
 
-	*	Requested Product	ProductID	Requested Quantity	Available Qty	Enough Inventory
-	*	-----------------	-----------	------------------	-------------	----------------
-	*	5					NULL		-1					NULL			NULL
-	*	5					NULL		5					NULL			NULL
-	*	5					NULL		50					NULL			NULL
-	*	5					NULL		500					NULL			NULL
-	*	7					NULL		-1					NULL			NULL
-	*	7					NULL		5					NULL			NULL
-	*	7					NULL		50					NULL			NULL
-	*	7					NULL		500					NULL			NULL
-	*	680					NULL		-1					NULL			NULL
-	*	680					NULL		5					NULL			0
-	*	680					NULL		50					NULL			0
-	*	680					NULL		500					NULL			0
-	*	717					NULL		-1					NULL			NULL
-	*	717					NULL		5					NULL			0
-	*	717					NULL		50					NULL			0
-	*	717					NULL		500					NULL			0
-	*	842					842			-1					72				NULL
-	*	842					842			5					72				1
-	*	842					842			50					72				1
-	*	842					842			500					72				0
-	*	853					853			-1					0				NULL
-	*	853					853			5					0				0
-	*	853					853			50					0				0
-	*	853					853			500					0				0
-	*	860					860			-1					36				NULL
-	*	860					860			5					36				1
-	*	860					860			50					36				0
-	*	860					860			500					36				0
-	*	882					882			-1					0				NULL
-	*	882					882			5					0				0
-	*	882					882			50					0				0
-	*	882					882			500					0				0
-	*/
+*	Requested Product	ProductID	Requested Quantity	Available Qty	Enough Inventory
+*	-----------------	-----------	------------------	-------------	----------------
+*	5					NULL		-1					NULL			NULL
+*	5					NULL		5					NULL			NULL
+*	5					NULL		50					NULL			NULL
+*	5					NULL		500					NULL			NULL
+*	7					NULL		-1					NULL			NULL
+*	7					NULL		5					NULL			NULL
+*	7					NULL		50					NULL			NULL
+*	7					NULL		500					NULL			NULL
+*	680					NULL		-1					NULL			NULL
+*	680					NULL		5					NULL			0
+*	680					NULL		50					NULL			0
+*	680					NULL		500					NULL			0
+*	717					NULL		-1					NULL			NULL
+*	717					NULL		5					NULL			0
+*	717					NULL		50					NULL			0
+*	717					NULL		500					NULL			0
+*	842					842			-1					72				NULL
+*	842					842			5					72				1
+*	842					842			50					72				1
+*	842					842			500					72				0
+*	853					853			-1					0				NULL
+*	853					853			5					0				0
+*	853					853			50					0				0
+*	853					853			500					0				0
+*	860					860			-1					36				NULL
+*	860					860			5					36				1
+*	860					860			50					36				0
+*	860					860			500					36				0
+*	882					882			-1					0				NULL
+*	882					882			5					0				0
+*	882					882			50					0				0
+*	882					882			500					0				0
+*/
 
 IF OBJECT_ID(N'dbo.TestInventory') IS NOT NULL
 	DROP FUNCTION [dbo].[TestInventory];
@@ -1383,11 +1392,14 @@ BEGIN
 END
 GO
 
--- Create a stored procedure that returns the top N products sold during the specified period of time, around given date.
--- Periods of time are: All, Year, Quarter, Month, Week, Day.
+/*
+* Create a stored procedure that returns the top N products sold during the specified period of time, around given date.
+* Periods of time are: All, Year, Quarter, Month, Week, Day.
+*
+* Test
 
--- Test
--- EXECUTE [dbo].[TopNProductsInPeriod] @TopN=7, @Period='Y', @Date='2012-5-9';
+	EXECUTE [dbo].[TopNProductsInPeriod] @TopN=7, @Period='Y', @Date='2012-5-9';
+*/
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_SCHEMA = N'dbo' AND SPECIFIC_NAME = N'TopNProductsInPeriod')
 BEGIN
@@ -1419,14 +1431,15 @@ BEGIN
 END
 GO
 
--- Create a stored procedure to insert a detail line in [dbo].[SalesOrderDetail], for a given order.
--- Validate the requested quantity of product is available in inventory.
--- Use list price value, in product information, as the unit price.
--- Use return code -1 to indicate not enough inventory
--- Use return code 0 to indicate detail inserted; there is enough inventory.
-
---Test
 /*
+* Create a stored procedure to insert a detail line in [dbo].[SalesOrderDetail], for a given order.
+* Validate the requested quantity of product is available in inventory.
+* Use list price value, in product information, as the unit price.
+* Use return code -1 to indicate not enough inventory
+* Use return code 0 to indicate detail inserted; there is enough inventory.
+*
+* Test
+
 	DECLARE @RC INT
 	DECLARE @ReturnValues TABLE (RC INT, Meaning NVARCHAR(120))
 
@@ -1561,21 +1574,22 @@ CREATE PROCEDURE [dbo].[InsertSalesOrderDetail] @OrderID INT
 	SET NOCOUNT, XACT_ABORT ON
 	GO
 
--- Write a stored procedure that updates the cost value of a product, as a percental change, when you are given:
--- > The cost change as a percent of increment
--- > a table variable with Product Ids
--- > a table variable with Product Sub-Category Ids (understanding that all products under those Sub-Categories are to be updated)
--- > a table variable with Category Ids (understanding that all products under those Categories are to be updated)
---
--- !! Business Rules !!
--- + Existing cost information must be archived in ProductCostHIstory table
--- + Existing open cost history needs to be properly closed
--- + All records need to be stamped with modified date
--- > Handle the case when all table variables are correctly defined, but might not have rows in them	
--- > Make the stored precedure in such way that it can recover from errors; no changes are final, until the entire operation is successful.
-
--- Test
 /*
+* Write a stored procedure that updates the cost value of a product, as a percental change, when you are given:
+* > The cost change as a percent of increment
+* > a table variable with Product Ids
+* > a table variable with Product Sub-Category Ids (understanding that all products under those Sub-Categories are to be updated)
+* > a table variable with Category Ids (understanding that all products under those Categories are to be updated)
+*
+* !! Business Rules !!
+* + Existing cost information must be archived in ProductCostHIstory table
+* + Existing open cost history needs to be properly closed
+* + All records need to be stamped with modified date
+* > Handle the case when all table variables are correctly defined, but might not have rows in them	
+* > Make the stored precedure in such way that it can recover from errors; no changes are final, until the entire operation is successful.
+*
+* Test
+
     DECLARE @ProductIdInput [IdsType];
     DECLARE @ProductSubcategoryIdInput [IdsType];
 	DECLARE @ProductCategoryIdInput [IdsType];

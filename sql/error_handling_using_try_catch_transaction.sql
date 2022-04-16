@@ -1,5 +1,7 @@
--- "Let’s say we have two tables, Parent and Child, and we need to guarantee that they both get populated at once."
--- Reference: https://www.brentozar.com/archive/2022/01/error-handling-quiz-week-tryin-try-catch/
+/*
+* "Let’s say we have two tables, Parent and Child, and we need to guarantee that they both get populated at once."
+* Reference: https://www.brentozar.com/archive/2022/01/error-handling-quiz-week-tryin-try-catch/
+*/
 
 -- create a test table
 DROP TABLE IF EXISTS dbo.parent;

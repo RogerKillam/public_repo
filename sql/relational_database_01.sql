@@ -1,6 +1,8 @@
--- The following is a demonstration of a relational database: Create; Insert; Update; Delete; Secure.
--- Edgar F. Codd https://www.ibm.com/ibm/history/exhibits/builders/builders_codd.html
--- https://www.sqlservercentral.com/blogs/oltp-star-snowflake-and-galaxy-schemas
+/*
+* The following is a demonstration of a relational database: Create; Insert; Update; Delete; Secure.
+* Edgar F. Codd https://www.ibm.com/ibm/history/exhibits/builders/builders_codd.html
+* https://www.sqlservercentral.com/blogs/oltp-star-snowflake-and-galaxy-schemas
+*/
 
 -- Drop demo logins
 USE [master]
@@ -17,9 +19,12 @@ BEGIN CATCH
 END CATCH
 GO
 
--- Create database relational_demo
--- This step requires membership in the sysadmin fixed server role
--- https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-delete-database-backuphistory-transact-sql?view=sql-server-ver15
+/*
+* Create database relational_demo
+* This step requires membership in the sysadmin fixed server role
+* https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-delete-database-backuphistory-transact-sql?view=sql-server-ver15
+*/
+
 USE [master]
 GO
 

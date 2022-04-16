@@ -2,6 +2,7 @@
 -- Reference: https://www.mssqltips.com/sqlservertip/3259/several-methods-to-collect-sql-server-stored-procedure-execution-history/
 
 -- https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2019.bak
+
 USE [AdventureWorks2019] -- use tager database
 GO
 
