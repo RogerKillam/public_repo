@@ -20,13 +20,13 @@
 
 11. Which is the correct operator to access a member of a structure?
 
-**A. .**
+    **A. .**
 
-B. [ ]
+    B. [ ]
 
-C. ( )
+    C. ( )
 
-D. !
+    D. !
 
 12. Several functions with the same name are called:
 A. overall
