@@ -4,6 +4,10 @@
 
 https://sites.uw.edu/rkillam/2020/03/14/cybersecurity-links/
 
+https://sites.uw.edu/rkillam/2020/12/18/csx-p-study-journal/
+
+https://www.kernel.org/doc/man-pages
+
 ## Windows Security Log Filters
 
 **4624** Successful Login
