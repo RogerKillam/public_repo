@@ -1,82 +1,82 @@
-1. Array indices start at one. [FALSE]
+1. Array indices start at one. **[FALSE]**
 
-2. Array.Rank is the total number of elements. [FALSE]
+2. Array.Rank is the total number of elements. **[FALSE]**
 
-3. Array.Length is the number of array dimensions. [FALSE]
+3. Array.Length is the number of array dimensions. **[FALSE]**
 
-4. foreach is used to iterate through an array. [TRUE]
+4. foreach is used to iterate through an array. **[TRUE]**
 
-5. protected class data is used in inheritance. [TRUE]
+5. protected class data is used in inheritance. **[TRUE]**
 
-6. Static variables retain their values for the life of the program. [TRUE]
+6. Static variables retain their values for the life of the program. **[TRUE]**
 
-7. Constructors are used to initialize class data. [TRUE]
+7. Constructors are used to initialize class data. **[TRUE]**
 
-8. Accessor functions are used to hide data. [TRUE]
+8. Accessor functions are used to hide data. **[TRUE]**
 
-9. The elements of an array can be different types. [TRUE]
+9. The elements of an array can be different types. **[TRUE]**
 
-10. The elements of a structure can be different types. [TRUE]
+10. The elements of a structure can be different types. **[TRUE]**
 
 11. Which is the correct operator to access a member of a structure?
- **A. .**
- B. [ ]
- C. ( )
- D. !
+**A. .**
+B. [ ]
+C. ( )
+D. !
 
 12. Several functions with the same name are called:
- A. overall
- B. oversize
- **C. overloading**
- D. overdone
+A. overall
+B. oversize
+**C. overloading**
+D. overdone
 
 13. If aiArray has 10 elements, which is the last logically valid accessible element:
- A. aiArray[8]
- **B. aiArray[9]**
- C. aiArray[10]
- D. aiArray[11]
+A. aiArray[8]
+**B. aiArray[9]**
+C. aiArray[10]
+D. aiArray[11]
 
 14. Which is the correct way to declare a two-dimensional array:
- A. int[ , ] aiArray;
- B. int[ ] aiArray;
- **C. int[ ][ ] aiArray;**
- D. int[ ].[ ] aiArray;
+A. int[ , ] aiArray;
+B. int[ ] aiArray;
+**C. int[ ][ ] aiArray;**
+D. int[ ].[ ] aiArray;
 
 15. The parameter to a function int AddSum(int iVal) is:
- A. passed by ref
- **B. passed by value**
- C. passed by pointer
- D. None of the above
+A. passed by ref
+**B. passed by value**
+C. passed by pointer
+D. None of the above
 
 16. A local variable's scope is:
- A. within a module
- B. within a function
- **C. within a statement**
- D. None of the above
+A. within a module
+B. within a function
+**C. within a statement**
+D. None of the above
 
 17. Declare an integer array of size 100:
- **A. int[] numbers = new int[100];**
- B. int numbers = new[] int[100];
- C. int[100] numbers = new int[];
- D. int new numbers = int[100];
+**A. int[] numbers = new int[100];**
+B. int numbers = new[] int[100];
+C. int[100] numbers = new int[];
+D. int new numbers = int[100];
 
 18. Properties should have the following:
- A. let / set
- **B. get / set**
- C. get only
- D. set only
+A. let / set
+**B. get / set**
+C. get only
+D. set only
 
 19. Which is the correct way to test two strings for equality?
- **A. Str1 == Str2**
- B. *Str1 == *Str2
- C. &Str1 == &Str2
- D. None of the above
+**A. Str1 == Str2**
+B. *Str1 == *Str2
+C. &Str1 == &Str2
+D. None of the above
 
 20. Which one is a correct way to access a method from class Point:
- A. point.MyMethod();
- **B. Point.MyMethod();**
- C. class point.MyMethod()
- D. class MyMethod(); 
+A. point.MyMethod();
+**B. Point.MyMethod();**
+C. class point.MyMethod()
+D. class MyMethod(); 
 
 21. What happens when you create an object of a class? Briefly describe the steps that happen behind the scene to the class that we instantiate from.
 **When a class is created, its constructor is called. Constructors have the same name as the class, and they usually initialize the data members of the new object.**
