@@ -1,7 +1,6 @@
 ﻿// Write a program that calculates factorial of an integer n given by the user.
 
 using System;
-
 namespace Factorial
 
 {

@@ -2,7 +2,6 @@
 // Modify Enqueue() to call the GrowQueue function when the count+1 is greater than or equal to the array.
 
 using System;
-
 namespace GrowQueueClass
 
 {

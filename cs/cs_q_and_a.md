@@ -19,7 +19,7 @@
 10. The elements of a structure can be different types. [TRUE]
 
 11. Which is the correct operator to access a member of a structure?
- *A. .
+ **A. .**
  B. [ ]
  C. ( )
  D. !
@@ -27,62 +27,63 @@
 12. Several functions with the same name are called:
  A. overall
  B. oversize
- *C. overloading
+ **C. overloading**
  D. overdone
 
 13. If aiArray has 10 elements, which is the last logically valid accessible element:
  A. aiArray[8]
- *B. aiArray[9]
+ **B. aiArray[9]**
  C. aiArray[10]
  D. aiArray[11]
 
 14. Which is the correct way to declare a two-dimensional array:
  A. int[ , ] aiArray;
  B. int[ ] aiArray;
- *C. int[ ][ ] aiArray;
+ **C. int[ ][ ] aiArray;**
  D. int[ ].[ ] aiArray;
 
 15. The parameter to a function int AddSum(int iVal) is:
  A. passed by ref
- *B. passed by value
+ **B. passed by value**
  C. passed by pointer
  D. None of the above
 
 16. A local variable's scope is:
  A. within a module
  B. within a function
- *C. within a statement
+ **C. within a statement**
  D. None of the above
 
 17. Declare an integer array of size 100:
- *A. int[] numbers = new int[100];
+ **A. int[] numbers = new int[100];**
  B. int numbers = new[] int[100];
  C. int[100] numbers = new int[];
  D. int new numbers = int[100];
 
 18. Properties should have the following:
  A. let / set
- *B. get / set
+ **B. get / set**
  C. get only
  D. set only
 
 19. Which is the correct way to test two strings for equality?
- *A. Str1 == Str2
+ **A. Str1 == Str2**
  B. *Str1 == *Str2
  C. &Str1 == &Str2
  D. None of the above
 
 20. Which one is a correct way to access a method from class Point:
  A. point.MyMethod();
- *B. Point.MyMethod();
+ **B. Point.MyMethod();**
  C. class point.MyMethod()
  D. class MyMethod(); 
 
 21. What happens when you create an object of a class? Briefly describe the steps that happen behind the scene to the class that we instantiate from.
- When a class is created, its constructor is called. Constructors have the same name as the class, and they usually initialize the data members of the new object.
+**When a class is created, its constructor is called. Constructors have the same name as the class, and they usually initialize the data members of the new object.**
 
 22. What will the following display?
  
+ ```
     using System;
     class Test
     {
@@ -102,13 +103,14 @@
             }
         }
     }
+```
  
-Display = 0  1  4  9  16  25  36  49  64  81
+**Display = 0  1  4  9  16  25  36  49  64  81**
 
 23. What will the following do?
- 
-    using System;
 
+```
+    using System;
     class Factorial
     {
         public static void Main()
@@ -146,13 +148,14 @@ Display = 0  1  4  9  16  25  36  49  64  81
             Console.WriteLine("{0}! is {1}", nComputeTo, nFactorial);
         }
     }
+```
 
-Behavior = This program will not complete. The try statement as written will not catch x’s DivideByZeroException.
+**Behavior = This program will not complete. The try statement as written will not catch x’s DivideByZeroException.**
 
 24. What will the following display?
  
+ ```
     using System;
-
     class Shape
     {
     }
@@ -165,11 +168,13 @@ Behavior = This program will not complete. The try statement as written will not
             Console.WriteLine(s);
         }
     }
+```
 
-Display = Shape
+**Display = Shape**
 
 25. Define a structure that contains a student name, social security number, number of classes taken, and a letter grade.
 
+```
     struct Student
     {
         public string Name;
@@ -185,9 +190,11 @@ Display = Shape
             SSN = ssn;
         }
     }
+```
  
 26. Define an enum for the seasons (Summer, Spring, Winter, and Fall).
 
+```
     enum Seasons
     {
         Summer, //The default value of the first enum member is 0 
@@ -195,11 +202,12 @@ Display = Shape
         Winter,
         Fall
     }
+```
 
 27. Given the following program what will be displayed. Is there anything unusual about this program?
  
+ ```
     using System;
-
     class Test
     {
         static void Main()
@@ -223,14 +231,15 @@ Display = Shape
             }
         }
     }
+```
 
-Display = 9 5 -2 4 5 5
-This program will shift the items up 1 place in the index, leaving index 5 alone, which is why item 5 is printed twice.
+**Display = 9 5 -2 4 5 5**
+**This program will shift the items up 1 place in the index, leaving index 5 alone, which is why item 5 is printed twice.**
  
 28. Given the following program what will be displayed. Is there anything unusual about this program?
  
+ ```
     using System;
-
     class Test
     {
         static void Main()
@@ -253,7 +262,8 @@ This program will shift the items up 1 place in the index, leaving index 5 alone
             }
         }
     }
+```
 
-Display = -2 7
-This program uses three steps to flip array items 7 and -2. Variable t is used as the temporary container for the flip algorithm.
+**Display = -2 7**
+**This program uses three steps to flip array items 7 and -2. Variable t is used as the temporary container for the flip algorithm.**
  

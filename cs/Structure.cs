@@ -1,5 +1,4 @@
 ﻿using System;
-
 public struct Pet
 {
     public string Name;

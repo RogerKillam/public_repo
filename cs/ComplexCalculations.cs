@@ -2,7 +2,6 @@
 // 129023 seconds should generate: 1 days, 11 hours, 50 minutes, and 23 seconds
 
 using System;
-
 namespace ComplexCalculations
 {
     class Program
