@@ -19,9 +19,13 @@
 10. The elements of a structure can be different types. **[TRUE]**
 
 11. Which is the correct operator to access a member of a structure?
+
 **A. .**
+
 B. [ ]
+
 C. ( )
+
 D. !
 
 12. Several functions with the same name are called:
