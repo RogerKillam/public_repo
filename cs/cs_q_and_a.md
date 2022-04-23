@@ -1,3 +1,5 @@
+# C# Questions and Answers
+
 1. Array indices start at one. **[FALSE]**
 
 2. Array.Rank is the total number of elements. **[FALSE]**
@@ -146,7 +148,7 @@
     }
 ```
  
-**Display = 0  1  4  9  16  25  36  49  64  81**
+    **Display = 0  1  4  9  16  25  36  49  64  81**
 
 23. What will the following do?
 
@@ -191,7 +193,7 @@
     }
 ```
 
-**Behavior = This program will not complete. The try statement as written will not catch x’s DivideByZeroException.**
+    **Behavior = This program will not complete. The try statement as written will not catch x’s DivideByZeroException.**
 
 24. What will the following display?
  
@@ -211,7 +213,7 @@
     }
 ```
 
-**Display = Shape**
+    **Display = Shape**
 
 25. Define a structure that contains a student name, social security number, number of classes taken, and a letter grade.
 
@@ -274,9 +276,9 @@
     }
 ```
 
-**Display = 9 5 -2 4 5 5**
+    **Display = 9 5 -2 4 5 5**
 
-**This program will shift the items up 1 place in the index, leaving index 5 alone, which is why item 5 is printed twice.**
+    **This program will shift the items up 1 place in the index, leaving index 5 alone, which is why item 5 is printed twice.**
  
 28. Given the following program what will be displayed. Is there anything unusual about this program?
  
@@ -306,7 +308,7 @@
     }
 ```
 
-**Display = -2 7**
+    **Display = -2 7**
 
-**This program uses three steps to flip array items 7 and -2. Variable t is used as the temporary container for the flip algorithm.**
+    **This program uses three steps to flip array items 7 and -2. Variable t is used as the temporary container for the flip algorithm.**
  
