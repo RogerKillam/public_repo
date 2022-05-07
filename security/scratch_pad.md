@@ -1,7 +1,5 @@
 # Scratch Pad
 
-**The following are a collection of things that I often forget :-)**
-
 ## Reference
 
 https://sites.uw.edu/rkillam/2020/03/14/cybersecurity-links/
