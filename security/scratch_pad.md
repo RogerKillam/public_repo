@@ -39,9 +39,7 @@ Review shell commands used by the last session
 
 ```
 $ cat .bash_history
-```
-or
-```
+// or
 $ history
 ```
 
@@ -91,9 +89,7 @@ $ sudo passwd newUser
 
 ```
 $ sudo cat /etc/passwd
-```
-or
-```
+// or
 $ getent passwd | grep newUser
 ```
 
@@ -103,9 +99,7 @@ $ sudo usermod -g testUsers newUser
 $ id newUser
 $ sudo chgrp testUsers file.txt
 $ cat /etc/group
-```
-or
-```
+// or
 $ getent group | grep testUsers
 $ sudo chown user01 ssh.txt
 $ mysql -h 192.168.1.100 -u kali -p
@@ -283,7 +277,7 @@ $ sudo /etc/init.d/networking restart
 $ sudo /etc/init.d/networking status
 ```
 
-## Review Tasks
+## Practice
 - Check a PDF using these hints: s, p, pk
 - Check a PDF using clamscan
 - Get a fresh clam
