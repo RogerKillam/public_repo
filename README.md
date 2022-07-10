@@ -1,16 +1,8 @@
-# Roger Killam's Public Repository
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-mDMEYmdiFRYJKwYBBAHaRw8BAQdA6fGUx2uTdelU9glgvYBAjpiuETJEZR1SDn0s
-UdUNtjq0GlJvZ2VyIEtpbGxhbSA8cm9rQHNwOTkuaW8+iJoEExYKAEIWIQRN3FS8
-r2k3Keba7ODzNc76BnAmYgUCYmdiFQIbAwUJA8NGGwULCQgHAgMiAgEGFQoJCAsC
-BBYCAwECHgcCF4AACgkQ8zXO+gZwJmLYkAEAm0SpAyBoUSR54+qaKeBGDtb3HFD/
-Mb4nPNVyzyA8TYUA/0BICaXWdeSLteg4O042IJC2hU5zLJxBc+c2T4oTgyUEuDgE
-YmdiFRIKKwYBBAGXVQEFAQEHQCEZkBRRo7FBGTwSbfRklQW0yCfRhiE96rYCJj0S
-4KRgAwEIB4h+BBgWCgAmFiEETdxUvK9pNynm2uzg8zXO+gZwJmIFAmJnYhUCGwwF
-CQPDRhsACgkQ8zXO+gZwJmL/CQD/RxnKoJmkiwM2Y28eI5UxKI1ixGZOFTezwAAX
-u5RiUWMBAMiIvPSY+EzMdGU31fspvkThgWxxN2HNAcoNrRS7fqMO
-=n5W7
-
------END PGP PUBLIC KEY BLOCK-----
+                       _ _           _   _                    _____                      _ _           ______             _                      _             
+     /\               | (_)         | | (_)                  / ____|                    (_) |         |  ____|           (_)                    (_)            
+    /  \   _ __  _ __ | |_  ___ __ _| |_ _  ___  _ __  ___  | (___   ___  ___ _   _ _ __ _| |_ _   _  | |__   _ __   __ _ _ _ __   ___  ___ _ __ _ _ __   __ _ 
+   / /\ \ | '_ \| '_ \| | |/ __/ _` | __| |/ _ \| '_ \/ __|  \___ \ / _ \/ __| | | | '__| | __| | | | |  __| | '_ \ / _` | | '_ \ / _ \/ _ \ '__| | '_ \ / _` |
+  / ____ \| |_) | |_) | | | (_| (_| | |_| | (_) | | | \__ \  ____) |  __/ (__| |_| | |  | | |_| |_| | | |____| | | | (_| | | | | |  __/  __/ |  | | | | | (_| |
+ /_/    \_\ .__/| .__/|_|_|\___\__,_|\__|_|\___/|_| |_|___/ |_____/ \___|\___|\__,_|_|  |_|\__|\__, | |______|_| |_|\__, |_|_| |_|\___|\___|_|  |_|_| |_|\__, |
+          | |   | |                                                                             __/ |                __/ |                                __/ |
+          |_|   |_|                                                                            |___/                |___/                                |___/ 
